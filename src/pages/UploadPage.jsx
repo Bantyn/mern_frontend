@@ -9,7 +9,7 @@ export default function UploadPage() {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API_URL = import.meta.env.VITE_API_URL ||`${window.location.protocol}//${window.location.hostname}:5000`;
+  const API_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL ||`${window.location.protocol}//${window.location.hostname}:5000`;
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];

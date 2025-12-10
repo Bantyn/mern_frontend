@@ -172,7 +172,7 @@ export default function SupportPage() {
   };
 
   const API_URL =
-    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_REACT_APP_BACKEND_URL ||
     `${window.location.protocol}//${window.location.hostname}:5000`;
   const [messages, setMessages] = useState([]);
 
