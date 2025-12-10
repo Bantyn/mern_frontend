@@ -172,8 +172,7 @@ export default function SupportPage() {
   };
 
   const API_URL =
-    import.meta.env.VITE_REACT_APP_BACKEND_URL ||
-    `${window.location.protocol}//${window.location.hostname}:5000`;
+    import.meta.env.VITE_REACT_APP_BACKEND_URL || `${window.location.protocol}//${window.location.hostname}:5000`;
   const [messages, setMessages] = useState([]);
 
   const handleSendMessage = async () => {
@@ -259,29 +258,28 @@ export default function SupportPage() {
 
       <div className="w-full max-w-3xl mx-auto relative ">
         {/* Top Hero Section */}
-<div className="text-center mt-10 mb-10 space-y-4">
+        <div className="text-center mt-10 mb-10 space-y-4">
+          <h1 className="text-[2.5rem] font-bold text-white tracking-tight">
+            Welcome to <span className="text-blue-500">Banty Support AI</span>
+          </h1>
 
-  <h1 className="text-[2.5rem] font-bold text-white tracking-tight">
-    Welcome to <span className="text-blue-500">Banty Support AI</span>
-  </h1>
+          <p className="text-white/60 text-lg max-w-2xl mx-auto">
+            Get instant help with coding, UI/UX design, deployments, errors,
+            backend, and more. Ask anything — I'm here 24/7.
+          </p>
 
-  <p className="text-white/60 text-lg max-w-2xl mx-auto">
-    Get instant help with coding, UI/UX design, deployments, errors, backend, and more.  
-    Ask anything — I'm here 24/7.
-  </p>
-
-  <div className="flex items-center justify-center gap-4 mt-6">
-    <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
-      🔥 Powered by AI
-    </span>
-    <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
-      ⚡ Instant Replies
-    </span>
-    <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
-      🛠 Developer Friendly
-    </span>
-  </div>
-</div>
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
+              🔥 Powered by AI
+            </span>
+            <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
+              ⚡ Instant Replies
+            </span>
+            <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
+              🛠 Developer Friendly
+            </span>
+          </div>
+        </div>
 
         <motion.div
           className="relative z-10 space-y-15"
@@ -289,7 +287,6 @@ export default function SupportPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          
           {/* Header */}
           <div className="text-center space-y-3">
             <motion.div
@@ -409,12 +406,14 @@ export default function SupportPage() {
                 placeholder="Type your message..."
                 containerClassName="w-full"
                 className="w-full px-4 py-3 resize-none text-white placeholder-gray-400 bg-black backdrop-blur-xs border-none focus:outline-none min-h-[70px]"
-                style={{ backgroundColor: "rgba(255, 255, 255, 0.05)" ,overflow: 'hidden'}}
+                style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.05)",
+                  overflow: "hidden",
+                }}
                 showRing={false}
               />
-              
             </div>
-                
+
             {/* Attachments */}
             <AnimatePresence>
               {attachments.length > 0 && (
@@ -444,7 +443,7 @@ export default function SupportPage() {
                 </motion.div>
               )}
             </AnimatePresence>
-              
+
             {/* Action Buttons */}
             <div className="p-4 border-t border-gray-200/0 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
@@ -472,7 +471,7 @@ export default function SupportPage() {
                   <Command className="w-4 h-4" />
                 </motion.button>
               </div>
-                  
+
               <motion.button
                 type="button"
                 onClick={handleSendMessage}
@@ -494,53 +493,72 @@ export default function SupportPage() {
               </motion.button>
             </div>
           </motion.div>
-          
-                {/* Help Categories */}
-<div className="mt-10 mb-12">
-  <h2 className="text-xl font-semibold text-white mb-4">Need help with?</h2>
-  
-  <div className="flex flex-wrap gap-3">
-    {["Frontend", "Backend", "Hosting", "Authentication", "Database", "UI/UX", "APIs", "Optimization", "Debugging"].map((t, i) => (
-      <button
-        key={i}
-        onClick={() => setValue(`Help me with ${t.toLowerCase()}: `)}
-        className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-sm backdrop-blur-lg border border-white/10 text-white/70"
-      >
-        {t}
-      </button>
-    ))}
-  </div>
-</div>
-                {/* Quick Action Cards */}
-<div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8 mb-12">
 
-  {[
-    { title: "Fix My Code", cmd: "Fix this code:", emoji: "🛠" },
-    { title: "Explain Error", cmd: "Explain this error:", emoji: "💡" },
-    { title: "Generate UI", cmd: "Create UI for:", emoji: "🎨" },
-    { title: "Make Backend API", cmd: "Create backend API for:", emoji: "⚙️" },
-    { title: "Debug React Code", cmd: "Debug this React component:", emoji: "⚛️" },
-    { title: "Write SQL Query", cmd: "Write SQL for:", emoji: "🗃" },
-  ].map((item, i) => (
-    <motion.div
-      key={i}
-      onClick={() => setValue(item.cmd + " ")}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      className="p-5 cursor-pointer rounded-xl backdrop-blur-lg bg-white/10 border border-white/20 hover:bg-white/20 transition text-white"
-    >
-      <div className="text-2xl">{item.emoji}</div>
-      <div className="text-lg font-semibold mt-1">{item.title}</div>
-      <div className="text-white/60 text-sm mt-1">Click to use</div>
-    </motion.div>
-  ))}
-</div>
+          {/* Help Categories */}
+          <div className="mt-10 mb-12">
+            <h2 className="text-xl font-semibold text-white mb-4">
+              Need help with?
+            </h2>
 
-        
-
+            <div className="flex flex-wrap gap-3">
+              {[
+                "Frontend",
+                "Backend",
+                "Hosting",
+                "Authentication",
+                "Database",
+                "UI/UX",
+                "APIs",
+                "Optimization",
+                "Debugging",
+              ].map((t, i) => (
+                <button
+                  key={i}
+                  onClick={() => setValue(`Help me with ${t.toLowerCase()}: `)}
+                  className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-sm backdrop-blur-lg border border-white/10 text-white/70"
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Quick Action Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8 mb-12">
+            {[
+              { title: "Fix My Code", cmd: "Fix this code:", emoji: "🛠" },
+              {
+                title: "Explain Error",
+                cmd: "Explain this error:",
+                emoji: "💡",
+              },
+              { title: "Generate UI", cmd: "Create UI for:", emoji: "🎨" },
+              {
+                title: "Make Backend API",
+                cmd: "Create backend API for:",
+                emoji: "⚙️",
+              },
+              {
+                title: "Debug React Code",
+                cmd: "Debug this React component:",
+                emoji: "⚛️",
+              },
+              { title: "Write SQL Query", cmd: "Write SQL for:", emoji: "🗃" },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                onClick={() => setValue(item.cmd + " ")}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-5 cursor-pointer rounded-xl backdrop-blur-lg bg-white/10 border border-white/20 hover:bg-white/20 transition text-white"
+              >
+                <div className="text-2xl">{item.emoji}</div>
+                <div className="text-lg font-semibold mt-1">{item.title}</div>
+                <div className="text-white/60 text-sm mt-1">Click to use</div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
-      
     </div>
   );
 }
