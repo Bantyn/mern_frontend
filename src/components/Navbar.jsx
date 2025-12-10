@@ -16,7 +16,7 @@ export default function Navbar() {
       transition={{ duration: 0.7, ease: "easeOut" }}
       className="
         bg-black/10 backdrop-blur-xs top-0 z-50 border border-white/10
-        fixed left-0 right-0 w-[80%] mx-auto px-10 mb-3 shadow-2xl shadow-purple-600/10  rounded-b-xl overflow-hidden
+        fixed left-0 right-0 w-[90%] mx-auto px-10 mb-3 shadow-2xl shadow-purple-600/10  rounded-b-xl overflow-hidden
       "
     >
       <div className="container mx-auto py-4 px-6 flex justify-between items-center">
