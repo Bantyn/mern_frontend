@@ -171,8 +171,7 @@ export default function SupportPage() {
     }
   };
 
-  const API_URL =
-    import.meta.env.VITE_REACT_APP_BACKEND_URL || `${window.location.protocol}//${window.location.hostname}:5000`;
+  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000`;
   const [messages, setMessages] = useState([]);
 
   const handleSendMessage = async () => {
@@ -196,7 +195,7 @@ export default function SupportPage() {
     setIsTyping(true);
 
     try {
-      const response = await fetch(`${API_URL}/api/genai`, {
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_URL ||  API_URL}/api/genai`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
