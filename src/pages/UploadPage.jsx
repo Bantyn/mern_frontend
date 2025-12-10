@@ -50,14 +50,16 @@ export default function UploadPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center  p-6">
+
+
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="w-full max-w-lg bg-white/10 backdrop-blur-xl border border-gray-400 shadow-xl 
+        className="w-full max-w-lg bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl 
                    rounded-3xl p-15 text-center"
       >
-        <h2 className="text-3xl font-bold text-black tracking-wide mb-6">
+        <h2 className="text-3xl font-bold text-white/30 tracking-wide mb-6">
           Upload File
         </h2>
 

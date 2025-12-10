@@ -23,6 +23,16 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen bg-black flex justify-center items-center px-4 py-10">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
+        {/* <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div> */}
+
+        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-600/40 rounded-full blur-[128px] animate-pulse delay-300 translate-x-80"></div>
+        <div className="absolute bottom-90 left-250 w-96 h-96 bg-indigo-600/30 rounded-full blur-[128px] animate-pulse delay-400"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[128px] animate-pulse delay-700"></div>
+      </div>
       {/* Card Container */}
       <div className="w-full max-w-md bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-xl text-white space-y-6">
 

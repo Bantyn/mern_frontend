@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-black text-white/70 py-20 mt-20 relative overflow-hidden border-t border-gray-900">
+    <footer className="bg-black  text-white/70 py-20 mt-20 relative overflow-hidden border-t border-gray-900">
 
       {/* Glow Background Animated */}
       <div className="absolute -top-20 left-0 h-56 w-56 bg-purple-500/20 blur-[120px] rounded-full animate-pulse"></div>
@@ -34,7 +34,7 @@ export default function Footer() {
                   {link}
 
                   {/* Animated underline */}
-                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
                 </a>
               </li>
             ))}
@@ -54,7 +54,7 @@ export default function Footer() {
                   className="relative text-gray-700 hover:text-white/70 transition-all"
                 >
                   {link}
-                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
                 </a>
               </li>
             ))}

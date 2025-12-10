@@ -63,7 +63,18 @@ export default function VerifyOtp() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+
+        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-600/40 rounded-full blur-[128px] animate-pulse delay-300 translate-x-80"></div>
+        <div className="absolute bottom-90 left-250 w-96 h-96 bg-indigo-600/30 rounded-full blur-[128px] animate-pulse delay-400"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[128px] animate-pulse delay-700"></div>
+      </div>
+
       <div className="relative w-full max-w-sm overflow-hidden rounded-3xl shadow-2xl">
         {/* Background GIF + Purple/Dark Gradient */}
         <div className="absolute inset-0 z-0">

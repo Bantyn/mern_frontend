@@ -69,14 +69,14 @@ export default function Navbar() {
         transition={{ duration: 0.4, ease: "easeInOut" }}
         className="md:hidden overflow-hidden"
       >
-        <div className="flex flex-col gap-4 text-center font-bold pb-4 text-gray-300 text-lg ">
+        <div className="flex flex-col gap-4 text-center font-bold pb-4 text-gray-300 text-lg  text-shadow-lg">
 
           {["Home", "About", "Contact", "Upload", "Support","Logout"].map((item) => (
             <Link
               key={item}
               to={item === "Home" ? "/home" : `/${item.toLowerCase()}`}
               onClick={() => setOpen(false)}
-              className="py-4 border-b border-white/10 hover:border-white/30 hover:bg-white/5 rounded-2xl hover:text-white transition"
+              className="py-4 backdrop-blur-3xl bg-black/10 border-b border-white/10 hover:border-white/30 hover:bg-white/5 rounded-2xl hover:text-white transition"
             >
               {item}
             </Link>

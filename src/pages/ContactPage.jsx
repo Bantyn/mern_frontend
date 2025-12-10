@@ -94,7 +94,7 @@ export default function ProfessionalConnect() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950/0 via-slate-900/0 to-slate-950/0 overflow-hidden relative w-full">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950/0 via-slate-900/0 to-slate-950/0 overflow-hidden relative w-full pt-50">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
@@ -127,7 +127,7 @@ export default function ProfessionalConnect() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto pt-40">
           {socialPlatforms.map((platform, index) => (
             <a
               key={platform.name}
