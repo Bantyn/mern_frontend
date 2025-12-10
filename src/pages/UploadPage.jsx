@@ -9,7 +9,7 @@ export default function UploadPage() {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const API_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL ||`${window.location.protocol}//${window.location.hostname}:5000`;
+  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000`;
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -33,11 +33,11 @@ export default function UploadPage() {
 
     try {
       setLoading(true);
-      const res = await axios.post(`${API_URL}/api/upload`, formData, {
+      const res = await axios.post(`${"https://mern-backend-f5oi.onrender.com"|| API_URL}/api/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      setUploadedUrl(`${API_URL}/uploads/${res.data.filename}`);
+      setUploadedUrl(`${"https://mern-backend-f5oi.onrender.com"|| API_URL}/uploads/${res.data.filename}`);
       handleClear();
       alert("File uploaded successfully!");
     } catch (err) {

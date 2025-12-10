@@ -10,7 +10,7 @@ export default function SignUpPage() {
     password: ""
   });
   
-  const API_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL || `${window.location.protocol}//${window.location.hostname}:5000`;
+  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000`;
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -28,7 +28,7 @@ export default function SignUpPage() {
     setMessage("");
 
     try {
-      const res = await axios.post(`${API_URL}/api/auth/register`, formData);
+      const res = await axios.post(` ${"https://mern-backend-f5oi.onrender.com"|| API_URL}/api/auth/register`, formData);
 
       setMessage("Account created successfully! Redirecting...");
       setFormData({ firstName: "", lastName: "", email: "", password: "" });

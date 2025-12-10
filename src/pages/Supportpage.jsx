@@ -195,7 +195,7 @@ export default function SupportPage() {
     setIsTyping(true);
 
     try {
-      const response = await fetch(`${"https://mern-backend-f5oi.onrender.com" || API_URL}/api/genai`, {
+      const response = await fetch(`${"https://mern-backend-f5oi.onrender.com"|| API_URL}/api/genai`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
