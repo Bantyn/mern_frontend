@@ -14,6 +14,7 @@ function getLocalIP() {
       }
     }
   }
+  
   return "localhost";
 }
 
