@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -101,9 +102,9 @@ export default function SignInPage() {
 
             <p className="text-center text-sm text-gray-400">
               Don't have an account?{" "}
-              <a href="/signup" className="text-purple-400 hover:underline">
+              <Link to="/signup" className="text-purple-400 hover:underline">
                 Create Account
-              </a>
+              </Link>
             </p>
           </form>
         </div>
