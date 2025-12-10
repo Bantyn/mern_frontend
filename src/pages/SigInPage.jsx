@@ -31,9 +31,9 @@ export default function SignInPage() {
     try {
       const res = await axios.post(`${ "https://mern-backend-f5oi.onrender.com"|| API_URL}/api/auth/login `, formData);
 
-      // Save token + user info
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      // Save token + user info with timeout for 1 hour
+      localStorage.setItem("token", res.data.token, {expires: new Date(Date.now() + 3600000)});
+      localStorage.setItem("user", JSON.stringify(res.data.user) , {expires: new Date(Date.now() + 3600000)});
 
       navigate("/home"); // redirect to home/dashboard
     } catch (error) {
@@ -104,6 +104,11 @@ export default function SignInPage() {
                 Create Account
               </Link>
             </p>
+            <p className="text-right mt-2">
+  <Link to="/forgot-password" className="text-purple-400 hover:underline">
+    Forgot Password?
+  </Link>
+</p>
           </form>
         </div>
       </div>

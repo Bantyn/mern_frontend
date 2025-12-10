@@ -15,35 +15,72 @@ import SignUpPage from "./pages/SignUpPage.jsx";
 import SignInPage from "./pages/SigInPage.jsx";
 import LogoutPage from "./pages/Logoutpage.jsx";
 import SupportPage from "./pages/Supportpage.jsx";
-// import AdminDashboard from "./admin/AdminDashboard.jsx";
+
+// Security
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
+
+// Auth
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import VerifyOtp from "./pages/VerifyOtp.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 function App() {
   return (
     <Routes>
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/verify-otp" element={<VerifyOtp />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
-      {/* 🌐 CLIENT SIDE (Navbar + Footer) */}
+      {/* 🌐 PUBLIC PAGES (Anyone can access) */}
       <Route element={<ClientLayout />}>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/upload" element={<UploadPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/support" element={<SupportPage />} />
-        <Route path="/logout" element={<LogoutPage />} />
       </Route>
 
-      {/* 🔐 AUTH PAGES (No Navbar/Footer) */}
+      {/* 🔒 PROTECTED PAGES (Only Logged-in Users) */}
+      <Route element={<ClientLayout />}>
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/upload"
+          element={
+            <ProtectedRoute>
+              <UploadPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/logout"
+          element={
+            <ProtectedRoute>
+              <LogoutPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
+      {/* 🔐 AUTH PAGES (No need login) */}
       <Route element={<AuthLayout />}>
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
       </Route>
 
-      {/* 🛠 ADMIN SIDE (No client navbar/footer) */}
+      {/* 🛠 ADMIN ONLY */}
       <Route element={<AdminLayout />}>
-        {/* <Route path="/admin" element={<AdminDashboard />} /> */}
-        {/* You can add more admin pages here */}
+        <Route
+          path="/admin"
+          element={<AdminRoute>{/* <AdminDashboard /> */}</AdminRoute>}
+        />
       </Route>
-
     </Routes>
   );
 }
