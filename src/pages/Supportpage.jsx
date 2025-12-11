@@ -342,7 +342,7 @@ export default function SupportPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col w-full items-center justify-center bg-black-50 text-white/70 p-6 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col w-full items-center justify-center dark:bg-black-50 dark:text-white/70 p-6 relative overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/50 rounded-full filter blur-[128px] animate-pulse" />
@@ -352,31 +352,31 @@ export default function SupportPage() {
 
       <div className="w-full max-w-3xl mx-auto relative ">
         {/* Top Hero Section */}
-        <div className="text-center mt-10 mb-10 space-y-4">
-          <h1 className="text-[2.5rem] font-bold text-white tracking-tight">
+        <div className="text-center mt-30 mb-10 space-y-4">
+          <h1 className="text-[2.5rem] font-bold dark:text-white tracking-tight">
             Welcome to <span className="text-blue-500">Banty Support AI</span>
           </h1>
 
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
+          <p className="dark:text-white/60 text-lg max-w-2xl mx-auto">
             Get instant help with coding, UI/UX design, deployments, errors,
             backend, and more. Ask anything — I'm here 24/7.
           </p>
 
           <div className="flex items-center justify-center gap-4 mt-6">
-            <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
+            <span className="px-4 py-1.5 bg-black/10 border-black/10 dark:bg-white/10 backdrop-blur-xl border dark:border-white/10 text-sm rounded-full dark:text-white/70">
               🔥 Powered by AI
             </span>
-            <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
+            <span className="px-4 py-1.5 bg-black/10 border-black/10 dark:bg-white/10 backdrop-blur-xl border dark:border-white/10 text-sm rounded-full dark:text-white/70">
               ⚡ Instant Replies
             </span>
-            <span className="px-4 py-1.5 bg-white/10 backdrop-blur-xl border border-white/10 text-sm rounded-full text-white/70">
+            <span className="px-4 py-1.5 bg-black/10 border-black/10 dark:bg-white/10 backdrop-blur-xl border dark:border-white/10 text-sm rounded-full dark:text-white/70">
               🛠 Developer Friendly
             </span>
           </div>
         </div>
 
         <motion.div
-          className="relative z-10 space-y-15"
+          className=" relative z-10 space-y-15"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -389,18 +389,18 @@ export default function SupportPage() {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="inline-block"
             >
-              <h1 className="text-4xl mt-20 font-medium tracking-tight pb-1">
+              <h1 className="text-4xl  mt-20 font-medium tracking-tight pb-1">
                 How can I help today?
               </h1>
               <motion.div
-                className="h-px bg-gray-300"
+                className="h-px dark:bg-gray-700 hover:bg-gray-500 bg-black mx-auto mt-2 mb-6" 
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ delay: 0.5, duration: 0.8 }}
               />
             </motion.div>
             <motion.p
-              className="text-sm text-white/40"
+              className="text-sm dark:text-white/40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -462,8 +462,8 @@ export default function SupportPage() {
                   className={clsx(
                     "max-w-[100%] md:max-w-[80%]  p-3 rounded-xl flex flex-col",
                     msg.sender === "user"
-                      ? "bg-blue-400/10 px-5 py-3 border border-blue-400/20 text-white/70 font-semibold ml-auto items-end"
-                      : "bg-gray-100/10 px-5 py-3  border border-gray-100/20 text-gray-200 font-semibold mr-auto items-start"
+                      ? "bg-blue-400/60 dark:bg-blue-400/10 px-5 py-3 border border-blue-400/20 text-white dark:text-white/70 font-semibold ml-auto items-end"
+                      : "bg-gray-100/60 dark:bg-gray-100/10 px-5 py-3  border border-gray-100/20 text-black dark:text-gray-200 font-semibold mr-auto items-start"
                   )}
                 >
                   {/* Message text */}
