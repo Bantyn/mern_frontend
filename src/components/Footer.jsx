@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-black  text-white/70 py-20 mt-20 relative overflow-hidden border-t border-gray-900">
+    <footer className="dark:bg-black dark:text-white/70 py-20 mt-20 relative overflow-hidden border-t border-gray-900">
 
       {/* Glow Background Animated */}
       <div className="absolute -top-20 left-0 h-56 w-56 bg-purple-500/20 blur-[120px] rounded-full animate-pulse"></div>
@@ -10,7 +10,7 @@ export default function Footer() {
 
         {/* Brand Section */}
         <div className="animate-fadeInUp">
-          <h2 className="text-4xl font-extrabold text-white/70 mb-6 tracking-wide">
+          <h2 className="text-4xl font-extrabold dark:text-white/70 mb-6 tracking-wide">
             MERN Project
           </h2>
           <p className="text-gray-600 leading-relaxed text-lg">
@@ -21,7 +21,7 @@ export default function Footer() {
 
         {/* Quick Links */}
         <div className="animate-fadeInUp delay-150">
-          <h3 className="text-2xl font-semibold text-white/70 mb-6">
+          <h3 className="text-2xl font-semibold dark:text-white/70 mb-6">
             Quick Links
           </h3>
           <ul className="space-y-3 text-lg">
@@ -29,7 +29,7 @@ export default function Footer() {
               <li key={link} className="group">
                 <a
                   href="#"
-                  className="relative text-gray-700 hover:text-white/70 transition-all"
+                  className="relative text-gray-700 hover:dark:text-white/70 transition-all"
                 >
                   {link}
 
@@ -43,7 +43,7 @@ export default function Footer() {
 
         {/* Policies */}
         <div className="animate-fadeInUp delay-300">
-          <h3 className="text-2xl font-semibold text-white/70 mb-6">
+          <h3 className="text-2xl font-semibold dark:text-white/70 mb-6">
             Legal
           </h3>
           <ul className="space-y-3 text-lg">
@@ -51,7 +51,7 @@ export default function Footer() {
               <li key={link} className="group">
                 <a
                   href="#"
-                  className="relative text-gray-700 hover:text-white/70 transition-all"
+                  className="relative text-gray-700 hover:dark:text-white/70 transition-all"
                 >
                   {link}
                   <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>

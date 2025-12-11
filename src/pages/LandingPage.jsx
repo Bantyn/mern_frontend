@@ -60,7 +60,6 @@ const testimonials = [
   },
 ];
 
-
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
 const thirdColumn = testimonials.slice(6, 9);
@@ -71,7 +70,7 @@ import {
   MdSettings,
   MdSupervisorAccount,
   MdVerifiedUser,
-  MdSupportAgent 
+  MdSupportAgent,
 } from "react-icons/md";
 import { section } from "framer-motion/client";
 
@@ -88,21 +87,39 @@ export default function Web3HeroAnimated() {
 
   return (
     <>
-      <section className="relative isolate h-screen overflow-hidden bg-black text-white">
+      <section className="relative pt-20 isolate h-screen overflow-hidden bg-white/90 dark:bg-black text-black dark:text-white transition-all duration-500">
         {/* Background gradients */}
         <div
           aria-hidden
-          className="absolute inset-0 -z-30"
-         style={{
-  backgroundImage: [
-    "radial-gradient(70% 50% at 50% 50%, rgba(170,240,230,0.22), rgba(160,150,255,0.18), rgba(255,180,150,0.17), rgba(50,40,10,0.85))",
-    "radial-gradient(60% 45% at 18% 10%, rgba(130,220,210,0.18), rgba(190,170,255,0.12), transparent 70%)",
-    "radial-gradient(55% 45% at 88% 20%, rgba(255,190,170,0.14), rgba(240,220,120,0.12), transparent 60%)",
-    "linear-gradient(to bottom, rgba(0,0,0,0.32), transparent 40%)"
-  ].join(","),
-}}
+          className="absolute inset-0 -z-30 transition-all duration-500"
+          style={{
+            backgroundImage: [
+              // Soft center glow
+              "radial-gradient(60% 50% at 50% 50%, rgba(255,255,255,0.35), rgba(245,245,245,0.00))",
 
+              // Left-side subtle warm glow
+              "radial-gradient(55% 45% at 20% 10%, rgba(255,228,210,0.20), transparent 70%)",
 
+              // Right-side cool soft glow
+              "radial-gradient(55% 50% at 85% 20%, rgba(205,225,255,0.18), transparent 65%)",
+
+              // Soft depth fade
+              "linear-gradient(to bottom, rgba(0,0,0,0.06), rgba(0,0,0,0))",
+            ].join(","),
+          }}
+        />
+
+        {/* 🌙 Dark Mode override */}
+        <div
+          className="absolute inset-0 -z-20 hidden dark:block transition-all duration-500"
+          style={{
+            backgroundImage: [
+              "radial-gradient(70% 50% at 50% 50%, rgba(170,240,230,0.22), rgba(160,150,255,0.18), rgba(255,180,150,0.17), rgba(50,40,10,0.85))",
+              "radial-gradient(60% 45% at 18% 10%, rgba(130,220,210,0.18), rgba(190,170,255,0.12), transparent 70%)",
+              "radial-gradient(55% 45% at 88% 20%, rgba(255,190,170,0.14), rgba(240,220,120,0.12), transparent 60%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.32), transparent 40%)",
+            ].join(","),
+          }}
         />
 
         <div className="absolute inset-0 -z-20 bg-[radial-gradient(140%_120%_at_50%_0%,transparent_60%,rgba(0,0,0,0.85))]" />
@@ -123,8 +140,8 @@ export default function Web3HeroAnimated() {
         {/* HERO TEXT */}
         <div className="relative z-10 mx-auto max-w-5xl text-center px-6 py-20">
           <div className={`${isMounted ? "animate-fadeInUp" : "opacity-0"}`}>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-[11px] uppercase text-white/70 ring-1 ring-white/10 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-white/70"></span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-black/5 dark:bg-white/5 px-3 py-1 text-[11px] uppercase text-black/70 dark:text-white/70 ring-1 ring-black/10 dark:ring-white/10 backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-black/70 dark:bg-white/70 "></span>
               Introducing the Future of Business Intelligence
             </span>
 
@@ -145,10 +162,12 @@ export default function Web3HeroAnimated() {
               style={{ animationDelay: "300ms" }}
               className={`${
                 isMounted ? "animate-fadeInUp" : "opacity-0"
-              } mx-auto mt-5 max-w-2xl text-white/80 md:text-lg`}
+              } mx-auto mt-5 max-w-2xl text-black/80 md:text-lg dark:text-white/80`}
             >
-              A next-generation ecosystem that blends the power of the MERN stack with Gemini AI and Web3 technology.
-Automate workflows, enhance security, and scale your business with intelligent decentralized solutions.
+              A next-generation ecosystem that blends the power of the MERN
+              stack with Gemini AI and Web3 technology. Automate workflows,
+              enhance security, and scale your business with intelligent
+              decentralized solutions.
             </p>
 
             <div
@@ -159,15 +178,15 @@ Automate workflows, enhance security, and scale your business with intelligent d
             >
               <Link
                 to="/login"
-                className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-white/90"
+                className="dark:text-black/80 dark:bg-white/80 rounded-full bg-black px-6 py-3 text-sm font-semibold text-white hover:bg-black/20 hover:text-black transition-all duration-350"
               >
                 Sign in
               </Link>
               <Link
                 to="/signup"
-                className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/90 hover:border-white/40"
+                className="rounded-full border border-black/50 dark:border-white/40 px-6 py-3 text-sm font-semibold  text-black/70 dark:text-white/80 hover:bg-black/90 dark:hover:bg-white/90 dark:hover:text-black transition-all duration-350 hover:text-white "
               >
-               Create Account
+                Create Account
               </Link>
             </div>
           </div>
@@ -188,7 +207,7 @@ Automate workflows, enhance security, and scale your business with intelligent d
             ].map((brand) => (
               <div
                 key={brand}
-                className="text-xs uppercase tracking-wider text-white/70"
+                className="text-xs uppercase tracking-wider text-black/70 dark:text-white/70"
               >
                 {brand}
               </div>
@@ -201,13 +220,13 @@ Automate workflows, enhance security, and scale your business with intelligent d
 
         {/* PILLARS */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[54vh]">
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 dark:from-black dark:via-black/70 to-transparent"></div>
 
           <div className="absolute inset-x-0 bottom-0 flex h-full items-end gap-px px-[2px]">
             {pillars.map((h, i) => (
               <div
                 key={i}
-                className="flex-1 bg-black transition-all duration-[1000ms]"
+                className="flex-1 bg-black/10 dark:bg-black dark:hover:bg-black transition-all duration-[1000ms]"
                 style={{
                   height: isMounted ? `${h}%` : "0%",
                   transitionDelay: `${
@@ -220,7 +239,7 @@ Automate workflows, enhance security, and scale your business with intelligent d
         </div>
       </section>
 
-      <section>
+      <section className="bg-white/90 dark:bg-black text-black dark:text-white transition-all duration-500">
         <motion.div
           initial={{ opacity: 0.0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -229,63 +248,65 @@ Automate workflows, enhance security, and scale your business with intelligent d
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="relative flex flex-col gap-4 items-center justify-center px-4"
+          className="relative flex flex-col mt-50 gap-4 items-center justify-center px-4"
         >
-          <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
+          <div className="text-3xl md:text-7xl font-bold  dark:text-white text-center">
             Lightning-Fast, AI-Enhanced & Future-Ready
           </div>
           <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
-            Experience unmatched performance, smooth animations, and intelligent automation designed for modern businesses.
+            Experience unmatched performance, smooth animations, and intelligent
+            automation designed for modern businesses.
           </div>
 
-          <button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
-           Explore Features
-          </button>
+          {/* <button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
+            Explore Features
+          </button> */}
         </motion.div>
       </section>
 
       {/* Testimonial */}
-      <section>
-        <section className="bg-background my-20 relative">
-          <div className="container z-10 mx-auto">
-            <motion.div
-              initial={{ opacity: 0.0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.5,
-                ease: "easeInOut",
-              }}
-              viewport={{ once: true }}
-              className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
-            >
-              <div className="flex justify-center">
-                <div className="border py-1 px-4 rounded-lg text-white/30 bg-amber-50/5 hover:text-white transition-all ease-in-out duration-150 hover:scale-105">Testimonials</div>
+      <section className="bg-background my-20 relative  bg-white/90 dark:bg-black text-black dark:text-white transition-all duration-500">
+        <div className="container z-10 mx-auto">
+          <motion.div
+            initial={{ opacity: 0.0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.5,
+              ease: "easeInOut",
+            }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
+          >
+            <div className="flex justify-center">
+              <div className="border py-1 px-4 mt-30 rounded-lg dark:text-white/50  dark:hover:text-white/80 text-black/30 bg-amber-50/5 hover:text-black transition-all ease-in-out duration-150 hover:scale-105">
+                Testimonials
               </div>
-
-              <h2 className="text-white/80 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5">
-                What Our Clients Say
-              </h2>
-              <p className="text-white/80 text-center mt-5 opacity-75">
-                Real feedback from teams who transformed their workflow with our AI-powered Web3 platform.
-              </p>
-            </motion.div>
-
-            <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
-              <TestimonialsColumn testimonials={firstColumn} duration={15} />
-              <TestimonialsColumn
-                testimonials={secondColumn}
-                className=" hidden md:block"
-                duration={19}
-              />
-              <TestimonialsColumn
-                testimonials={thirdColumn}
-                className="hidden lg:block"
-                duration={17}
-              />
             </div>
+
+            <h2 className="text-black/90 text-xl dark:text-white/80 sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5">
+              What Our Clients Say
+            </h2>
+            <p className="text-black/90 text-center mt-5 opacity-75 dark:text-white/75">
+              Real feedback from teams who transformed their workflow with our
+              AI-powered Web3 platform.
+            </p>
+          </motion.div>
+
+          <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+            <TestimonialsColumn testimonials={firstColumn} duration={15} />
+            <TestimonialsColumn
+              testimonials={secondColumn}
+              className=" hidden md:block"
+              duration={19}
+            />
+            <TestimonialsColumn
+              testimonials={thirdColumn}
+              className="hidden lg:block"
+              duration={17}
+            />
           </div>
-        </section>
+        </div>
       </section>
 
       {/* Last Part */}
@@ -310,7 +331,8 @@ Automate workflows, enhance security, and scale your business with intelligent d
               </span>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0.0, y: 40 }}
+            <motion.div
+              initial={{ opacity: 0.0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.8,
@@ -318,60 +340,62 @@ Automate workflows, enhance security, and scale your business with intelligent d
                 ease: "easeInOut",
               }}
               viewport={{ once: true }}
-              className="mt-34 -mb-70 grid grid-cols-5 text-zinc-900 text-center dark:text-white z-20">
+              className="mt-34 -mb-70 grid grid-cols-5 text-zinc-900 text-center dark:text-white z-20"
+            >
               <div className="flex flex-col items-center  gap-2">
                 <MdAdminPanelSettings
-                  size={50}
-                  className="text-white/80 hover:text-purple-400 transition-colors"
+                  size={40}
+                  className="text-black/80 dark:text-white/80 hover:text-purple-400"
                 />
-                <span className="text-lg font-extrabold text-gray-500 hover:text-white ">
+                <span className="text-sm hover:text-black/80 font-extrabold text-gray-500 dark:hover:text-white ">
                   Admin <br /> Control
                 </span>
               </div>
 
               <div className="flex flex-col items-center  gap-2">
                 <MdSecurity
-                  size={50}
-                  className="text-white/80 hover:text-purple-400 transition-colors"
+                  size={40}
+                  className="text-black/80 dark:text-white/80 hover:text-purple-400"
                 />
-                <span className="text-lg font-extrabold text-gray-500 hover:text-white ">
+                <span className="text-sm hover:text-black/80 font-extrabold text-gray-500 dark:hover:text-white ">
                   Security <br /> Shield
                 </span>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <MdSupportAgent
-                  size={50}
-                  className="text-white/80 hover:text-purple-400 transition-colors"
+                  size={40}
+                  className="text-black/80 dark:text-white/80 hover:text-purple-400"
                 />
-                <span className="text-lg font-extrabold  text-gray-500 hover:text-white ">
-                  AI <br />Support
+                <span className="text-sm hover:text-black/80 font-extrabold  text-gray-500 dark:hover:text-white ">
+                  AI <br />
+                  Support
                 </span>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <MdSettings
-                  size={50}
-                  className="text-white/80 hover:text-purple-400 transition-colors"
+                  size={40}
+                  className="text-black/80 dark:text-white/80 hover:text-purple-400"
                 />
-                <span className="text-lg font-extrabold text-gray-500 hover:text-white ">
-                  System <br />Settings
+                <span className="text-sm hover:text-black/80 font-extrabold text-gray-500 dark:hover:text-white ">
+                  System <br />
+                  Settings
                 </span>
               </div>
 
               <div className="flex flex-col items-center gap-2">
                 <MdSupervisorAccount
-                  size={50}
-                  className="text-white/80 hover:text-purple-400 transition-colors"
+                  size={40}
+                  className="text-black/80 dark:text-white/80 hover:text-purple-400"
                 />
-                <span className="text-lg font-extrabold text-gray-500 hover:text-white ">
+                <span className="text-sm hover:text-black/80 font-extrabold text-gray-500 dark:hover:text-white ">
                   Supervision Panel
                 </span>
               </div>
-
             </motion.div>
           </div>
         </div>
 
-        < motion.div
+        <motion.div
           initial={{ opacity: 0.0, y: 50 }}
           whileInView={{ opacity: 1, y: -40 }}
           transition={{
@@ -380,10 +404,11 @@ Automate workflows, enhance security, and scale your business with intelligent d
             ease: "easeInOut",
           }}
           viewport={{ once: true }}
-          className="relative mt-32  h-100 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
+          className="relative mt-32  h-100 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]"
+        >
           <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#8350e8,transparent_70%)] before:opacity-40" />
           <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-zinc-900/20 dark:border-white/20 bg-white dark:bg-zinc-900" />
-      </motion.div>
+        </motion.div>
       </section>
     </>
   );

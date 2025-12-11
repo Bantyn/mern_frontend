@@ -95,49 +95,61 @@ export default function ProfessionalConnect() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950/0 via-slate-900/0 to-slate-950/0 overflow-hidden relative w-full pt-50">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    {/* Background Effects */}
+<div className="absolute inset-0">
+  {/* Soft Teal → Violet radial wash */}
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-300/20 via-transparent to-transparent"></div>
 
-        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-600/40 rounded-full blur-[128px] animate-pulse"></div>
-        <div className="absolute bottom-90 left-250 w-96 h-96 bg-indigo-600/30 rounded-full blur-[128px] animate-pulse delay-700"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/40 rounded-full blur-[128px] animate-pulse delay-700"></div>
-      </div>
+  {/* Subtle Peach → Indigo radial blend */}
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-rose-300/20 via-transparent to-transparent"></div>
+
+  {/* Minimal Grid Overlay */}
+  <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] 
+  bg-[size:5rem_5rem] 
+  [mask-image:radial-gradient(ellipse_70%_55%_at_50%_10%,#000_70%,transparent_100%)]">
+  </div>
+
+  {/* New Glow Spots (Modern Multi-Color) */}
+  <div className="absolute top-24 left-20 w-72 h-72 bg-teal-400/40 rounded-full blur-[130px] animate-pulse"></div>
+
+  <div className="absolute bottom-40 left-1/3 w-96 h-96 bg-rose-400/35 rounded-full blur-[140px] animate-pulse delay-500"></div>
+
+  <div className="absolute bottom-24 right-20 w-96 h-96 bg-violet-500/40 rounded-full blur-[150px] animate-pulse delay-700"></div>
+</div>
+
 
       {/* Main Section */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8">
-        <div className={`text-center mb-16 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-          <div className="inline-block mb-4 px-4 py-1.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full border border-blue-500/20">
-            <span className="text-sm font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        <div className={`text-center  transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <div className="inline-block -mt-90 mb-4 px-4 py-1.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full border border-blue-500/20">
+            <span className="text-sm  font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Connect & Collaborate
             </span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            <span className="bg-gradient-to-br from-white via-white to-gray-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-br from-white via-white to-gray-400 bg-clip-text dark:text-transparent">
               Get In Touch
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
             Join our vibrant community across multiple platforms and stay connected with the latest updates
           </p>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto pt-40">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto pt-40 ">
           {socialPlatforms.map((platform, index) => (
-            <a
-              key={platform.name}
-              href={platform.link}
-              className={`group relative transition-all duration-700 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-slate-600/50">
+              <a
+                key={platform.name}
+                href={platform.link}
+                className={`group relative transition-all duration-700 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+              <div className="relative  bg-black/10 dark:shadow-white/10 shadow-2xl   dark:bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 overflow-hidden transition-all duration-500 hover:scale-105 hover:border-slate-600/50">
                 <div className={`absolute inset-0 bg-gradient-to-br ${platform.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
 
                 <div
@@ -153,10 +165,10 @@ export default function ProfessionalConnect() {
                     {platform.icon}
                   </div>
 
-                  <h3 className="text-white font-semibold text-lg mb-1">{platform.name}</h3>
-                  <p className="text-gray-500 text-sm group-hover:text-gray-400">{platform.description}</p>
+                  <h3 className="dark:text-white font-semibold text-lg mb-1">{platform.name}</h3>
+                  <p className="dark:text-gray-500 text-sm group-hover:text-gray-900 dark:group-hover:text-gray-400">{platform.description}</p>
 
-                  <div className="mt-4 flex items-center text-gray-600 group-hover:text-white transition-all duration-300">
+                  <div className="mt-4 flex items-center text-gray-600 group-hover:text-black dark:group-hover:text-white transition-all duration-300">
                     <span className="text-sm font-medium">Connect</span>
                     <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

@@ -121,7 +121,7 @@ export const TestimonialsColumn = ({ className, testimonials, duration }) => {
           <React.Fragment key={index}>
             {testimonials.map(({ text, image, name, role }, i) => (
               <div
-                className="p-10 text-white bg-white/5 hover:bg-white/10 hover:scale-[1.05] opacity-50 hover:opacity-100 transition-all duration-300 shadow-white/5 rounded-4xl border border-gray-500/40 shadow-xl shadow-primary/10 max-w-xs w-full"
+                className="p-10 text-black dark:text-white bg-white/5 dark:hover:bg-white/10 hover:bg-black/5 hover:scale-[1.05] opacity-80 hover:opacity-100 transition-all duration-300 dark:shadow-white/5 shadow-black/5 rounded-4xl border border-gray-500/40 shadow-xl shadow-primary/10 max-w-xs w-full"
                 key={i}
               >
                 <div>{text}</div>

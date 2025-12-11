@@ -27,6 +27,7 @@ import ResetPassword from "./pages/ResetPassword.jsx";
 
 function App() {
   return (
+  
     <Routes>
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/verify-otp" element={<VerifyOtp />} />
