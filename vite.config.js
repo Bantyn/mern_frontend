@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import os from 'os';
-import tailwindcss from '@tailwindcss/vite'
+import path from "path"
+import tailwindcss from "@tailwindcss/vite"
 import { env } from 'process';
 
 // Get your LAN IP
@@ -21,7 +22,12 @@ function getLocalIP() {
 const LOCAL_IP = getLocalIP();
 
 export default defineConfig({
-  plugins: [react(),tailwindcss()],
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   server: {
     host: LOCAL_IP, 
     port: 5173,     

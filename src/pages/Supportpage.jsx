@@ -15,6 +15,101 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as React from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css";
+
+function formatMessage(text) {
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeHighlight]}
+      components={{
+        // Responsive paragraph text
+        p: ({ node, ...props }) => (
+          <p
+            style={{ margin: "0.75rem 0" }}
+            className="text-white text-sm sm:text-base md:text-lg leading-relaxed break-words md:w-[80%] w-[62%] "
+            {...props}
+          />
+        ),
+
+        // Inline & Block Code (responsive)
+        code: ({ node, inline, children, ...props }) => {
+          return inline ? (
+            // Inline code
+            <code
+              style={{
+                background: "#2d2d2d",
+                padding: "2px 5px",
+                borderRadius: "4px",
+                fontSize: "0.85rem",
+              }}
+              className="text-gray-100 "
+              {...props}
+            >
+              {children}
+            </code>
+          ) : (
+            // Block code
+            <pre
+              style={{
+                // background: "#111",
+                padding: "14px",
+                borderRadius: "10px",
+                overflowX: "auto",
+              }}
+              className="my-3 md:w-[80%] w-[62%] word-break bg-black/30 backdrop-blur-2xl shadow-2xl border border-gray-200/10"
+            >
+              <code
+                {...props}
+                className="text-gray-200 text-xs sm:text-sm md:text-base"
+              >
+                {children}
+              </code>
+            </pre>
+          );
+        },
+
+        // Responsive Links
+        a: ({ node, ...props }) => (
+          <a
+            {...props}
+            className="text-blue-400 underline text-sm sm:text-base md:w-[80%] w-[62%]"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        ),
+
+        // Lists responsive
+        ul: ({ node, ...props }) => (
+          <ul
+            className="list-disc md:w-[80%] w-[62%] pl-6 text-sm sm:text-base md:text-lg space-y-1 text-gray-200"
+            {...props}
+          />
+        ),
+
+        ol: ({ node, ...props }) => (
+          <ol
+            className="list-decimal pl-6 text-sm sm:text-base md:text-lg space-y-1 text-gray-200 md:w-[80%] w-[62%]"
+            {...props}
+          />
+        ),
+
+        // Headings responsive
+        h1: ({node, ...props}) => <h1 className="md:w-[80%] w-[62%] text-2xl sm:text-3xl font-bold text-white my-3" {...props} />,
+        h2: ({node, ...props}) => <h2 className="md:w-[80%] w-[62%] text-xl sm:text-2xl font-semibold text-white my-3" {...props} />,
+        h3: ({node, ...props}) => <h3 className="md:w-[80%] w-[62%] text-lg sm:text-xl font-semibold text-white my-2" {...props} />,
+      }}
+    >
+      {text}
+    </ReactMarkdown>
+  );
+}
+
+
+
 
 function useAutoResizeTextarea({ minHeight, maxHeight }) {
   const textareaRef = useRef(null);
@@ -193,9 +288,9 @@ export default function SupportPage() {
     ]);
 
     setIsTyping(true);
-
     try {
-      const response = await fetch(`${"https://mern-backend-f5oi.onrender.com"|| API_URL}/api/genai`, {
+      // const renderedApiUrl = process.env.NODE_ENV === "production";
+      const response = await fetch(`${API_URL}/api/genai`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
@@ -365,14 +460,18 @@ export default function SupportPage() {
                 <div
                   key={index}
                   className={clsx(
-                    "max-w-[80%] p-3 rounded-xl flex flex-col",
+                    "max-w-[100%] md:max-w-[80%]  p-3 rounded-xl flex flex-col",
                     msg.sender === "user"
                       ? "bg-blue-400/10 px-5 py-3 border border-blue-400/20 text-white/70 font-semibold ml-auto items-end"
-                      : "bg-gray-100/10 px-5 py-3 border border-gray-100/20 text-gray-200 font-semibold mr-auto items-start"
+                      : "bg-gray-100/10 px-5 py-3  border border-gray-100/20 text-gray-200 font-semibold mr-auto items-start"
                   )}
                 >
                   {/* Message text */}
-                  <div className="break-words">{msg.text}</div>
+                  <div className="break-words">
+                    {typeof msg.text === "string"
+                      ? formatMessage(msg.text)
+                      : msg.text}
+                  </div>
 
                   {/* Timestamp */}
                   <span className="text-[11px] text-gray-400 mt-1">
@@ -386,7 +485,7 @@ export default function SupportPage() {
 
               {/* Typing indicator */}
               {isTyping && (
-                <div className="max-w-[50%] p-3 bg-gray-100/30 text-gray-200 rounded-xl mr-auto flex items-center gap-1">
+                <div className="max-w-[50%] p-3 bg-gray-100/30  text-gray-200 rounded-xl mr-auto flex items-center gap-1">
                   <TypingDots />
                   <span className="text-xs text-gray-500">Typing...</span>
                 </div>

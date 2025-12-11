@@ -58,7 +58,7 @@
 }
 
 * {
-  scrollbar-width:thin;
-  scrollbar-color: #b1b1b1 #092041;
-  scroll-behavior:smooth;
+  scrollbar-width: none;
+  /* scrollbar-color: #b1b1b1 #092041; */
+  /* scroll-behavior:smooth; */
 }
