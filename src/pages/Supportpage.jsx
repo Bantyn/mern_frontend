@@ -30,7 +30,7 @@ function formatMessage(text) {
         p: ({ node, ...props }) => (
           <p
             style={{ margin: "0.75rem 0" }}
-            className="text-white text-sm sm:text-base md:text-lg leading-relaxed break-words md:w-[80%] w-[62%] "
+            className=" dark:text-white text-sm sm:text-base md:text-lg leading-relaxed w-full"
             {...props}
           />
         ),
@@ -60,7 +60,7 @@ function formatMessage(text) {
                 borderRadius: "10px",
                 overflowX: "auto",
               }}
-              className="my-3 md:w-[80%] w-[62%] word-break bg-black/30 backdrop-blur-2xl shadow-2xl border border-gray-200/10"
+              className="my-3 w-[100%] word-break bg-black/70 dark:bg-black/30 backdrop-blur-2xl shadow-2xl border border-gray-200/10"
             >
               <code
                 {...props}
@@ -85,31 +85,28 @@ function formatMessage(text) {
         // Lists responsive
         ul: ({ node, ...props }) => (
           <ul
-            className="list-disc md:w-[80%] w-[62%] pl-6 text-sm sm:text-base md:text-lg space-y-1 text-gray-200"
+            className="list-disc md:w-[80%] w-[80%] pl-6 text-sm sm:text-base md:text-lg space-y-1 dark:text-gray-200"
             {...props}
           />
         ),
 
         ol: ({ node, ...props }) => (
           <ol
-            className="list-decimal pl-6 text-sm sm:text-base md:text-lg space-y-1 text-gray-200 md:w-[80%] w-[62%]"
+            className="list-decimal pl-6 text-sm sm:text-base md:text-lg space-y-1 dark:text-gray-200 md:w-[80%] w-[62%]"
             {...props}
           />
         ),
 
         // Headings responsive
-        h1: ({node, ...props}) => <h1 className="md:w-[80%] w-[62%] text-2xl sm:text-3xl font-bold text-white my-3" {...props} />,
-        h2: ({node, ...props}) => <h2 className="md:w-[80%] w-[62%] text-xl sm:text-2xl font-semibold text-white my-3" {...props} />,
-        h3: ({node, ...props}) => <h3 className="md:w-[80%] w-[62%] text-lg sm:text-xl font-semibold text-white my-2" {...props} />,
+        h1: ({node, ...props}) => <h1 className="md:w-[80%] w-[62%] text-2xl sm:text-3xl font-bold dark:text-white my-3" {...props} />,
+        h2: ({node, ...props}) => <h2 className="md:w-[80%] w-[62%] text-xl sm:text-2xl font-semibold dark:text-white my-3" {...props} />,
+        h3: ({node, ...props}) => <h3 className="md:w-[80%] w-[62%] text-lg sm:text-xl font-semibold dark:text-white my-2" {...props} />,
       }}
     >
       {text}
     </ReactMarkdown>
   );
 }
-
-
-
 
 function useAutoResizeTextarea({ minHeight, maxHeight }) {
   const textareaRef = useRef(null);
@@ -154,9 +151,9 @@ const Textarea = React.forwardRef(
       <div className={clsx("relative", containerClassName)}>
         <textarea
           className={clsx(
-            "flex min-h-[80px] w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900",
+            "flex min-h-[80px] w-full rounded-md border dark:border-gray-300 dark:bg-gray-900 px-3 py-2 text-sm text-gray-900",
             "transition-all duration-200 ease-in-out",
-            "placeholder:text-gray-400",
+            "placeholder:text-gray-900 dark:placeholder:text-gray-400 ",
             "disabled:cursor-not-allowed disabled:opacity-50",
             showRing
               ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300"
@@ -188,16 +185,16 @@ export default function SupportPage() {
   const [value, setValue] = useState("");
   const [attachments, setAttachments] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  // const [isPending, startTransition] = useTransition();
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
-  const [recentCommand, setRecentCommand] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // const [recentCommand, setRecentCommand] = useState(null);
+  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { textareaRef, adjustHeight } = useAutoResizeTextarea({
     minHeight: 60,
     maxHeight: 200,
   });
-  const [inputFocused, setInputFocused] = useState(false);
+  // const [inputFocused, setInputFocused] = useState(false);
   const commandPaletteRef = useRef(null);
 
   const commandSuggestions = [
@@ -266,7 +263,7 @@ export default function SupportPage() {
     }
   };
 
-  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000`;
+  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000` ;
   const [messages, setMessages] = useState([]);
 
   const handleSendMessage = async () => {
@@ -290,7 +287,7 @@ export default function SupportPage() {
     setIsTyping(true);
     try {
       // const renderedApiUrl = process.env.NODE_ENV === "production";
-      const response = await fetch(`${API_URL}/api/genai`, {
+      const response = await fetch(`${API_URL || import.meta.env.VITE_REACT_APP_BACKEND_URL }/api/genai`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
@@ -382,7 +379,7 @@ export default function SupportPage() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           {/* Header */}
-          <div className="text-center space-y-3">
+          <div className="text-center dark:text-white space-y-3">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -400,7 +397,7 @@ export default function SupportPage() {
               />
             </motion.div>
             <motion.p
-              className="text-sm dark:text-white/40"
+              className="text-sm text-black/40 dark:text-white/40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -411,7 +408,7 @@ export default function SupportPage() {
 
           {/* Chat Input */}
           <motion.div
-            className="relative bg-black/10 rounded-2xl border border-gray-700 shadow-lg"
+            className="relative bg-white/10  dark:bg-black/10 rounded-2xl  dark:border-gray-200/10 shadow-md hover:scale-[1.002] dark:shadow-white/5 hover:shadow-lg transition-all duration-300 flex flex-col"
             initial={{ scale: 0.98 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.1 }}
@@ -460,10 +457,10 @@ export default function SupportPage() {
                 <div
                   key={index}
                   className={clsx(
-                    "max-w-[100%] md:max-w-[80%]  p-3 rounded-xl flex flex-col",
+                    "max-w-[100%] md:max-w-[90%]  p-3 rounded-xl flex flex-col",
                     msg.sender === "user"
-                      ? "bg-blue-400/60 dark:bg-blue-400/10 px-5 py-3 border border-blue-400/20 text-white dark:text-white/70 font-semibold ml-auto items-end"
-                      : "bg-gray-100/60 dark:bg-gray-100/10 px-5 py-3  border border-gray-100/20 text-black dark:text-gray-200 font-semibold mr-auto items-start"
+                      ? "bg-rose-400 dark:bg-rose-400/20 mt-3 px-5 py-3 border border-rose-400/20 text-white dark:text-white/70 font-normal ml-auto text-right"
+                      : "bg-gray-200 dark:bg-gray-100/20 mt-3 px-5 py-3  border border-gray-100/20 text-black dark:text-gray-200 font-semibold mr-auto text-left"
                   )}
                 >
                   {/* Message text */}
@@ -503,7 +500,7 @@ export default function SupportPage() {
                 onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
                 containerClassName="w-full"
-                className="w-full px-4 py-3 resize-none text-white placeholder-gray-400 bg-black backdrop-blur-xs border-none focus:outline-none min-h-[70px]"
+                className="w-full px-4 py-3 font-semibold text-lg shadow-sm  resize-none dark:text-white placeholder-gray-400 backdrop-blur-xs border border-gray-500/10 dark:border-gray-500/10 focus:outline-none min-h-[70px]"
                 style={{
                   backgroundColor: "rgba(255, 255, 255, 0.05)",
                   overflow: "hidden",
@@ -578,8 +575,8 @@ export default function SupportPage() {
                 disabled={isTyping || !value.trim()}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
                   value.trim()
-                    ? "bg-pink-700  border-2 border-pink/0 text-white shadow-lg"
-                    : "bg-pink-700/60 border border-2 shadow-lg border-pink-700 text-white hover:bg-pink-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                    ? "bg-rose-700/20 border-1 border-rose-700 hover:bg-rose-700/80 hover:text-white border-1 border-rose/0 text-rose-700 shadow-lg active:scale-95"
+                    : "bg-rose-700/50 border-1 shadow-lg border-rose-700 text-rose-700 hover:bg-rose-100 hover:text-rose-700 disabled:cursor-not-allowed disabled:opacity-50"
                 }`}
               >
                 {isTyping ? (
@@ -594,7 +591,7 @@ export default function SupportPage() {
 
           {/* Help Categories */}
           <div className="mt-10 mb-12">
-            <h2 className="text-xl font-semibold text-white mb-4">
+            <h2 className="text-xl font-semibold dark:text-white mb-4">
               Need help with?
             </h2>
 
@@ -612,8 +609,8 @@ export default function SupportPage() {
               ].map((t, i) => (
                 <button
                   key={i}
-                  onClick={() => setValue(`Help me with ${t.toLowerCase()}: `)}
-                  className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-sm backdrop-blur-lg border border-white/10 text-white/70"
+                  onClick={() => setValue(`Can you help me with ${t.toLowerCase()}`)}
+                  className="px-4 py-2 rounded-full bg-black/10 dark:bg-white/10  hover:bg-black/20 dark:hover:bg-white/20 text-sm backdrop-blur-lg border border-white/10 dark:text-white/70 transition-colors hover:scale-102 active:scale-97"
                 >
                   {t}
                 </button>
@@ -647,11 +644,11 @@ export default function SupportPage() {
                 onClick={() => setValue(item.cmd + " ")}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="p-5 cursor-pointer rounded-xl backdrop-blur-lg bg-white/10 border border-white/20 hover:bg-white/20 transition text-white"
+                className="p-5 cursor-pointer rounded-xl backdrop-blur-lg bg-black/10 dark:bg-white/10 border border-white/20 hover:bg-black/20 dark:hover:bg-white/20 transition-all duration-700 dark:text-white"
               >
                 <div className="text-2xl">{item.emoji}</div>
                 <div className="text-lg font-semibold mt-1">{item.title}</div>
-                <div className="text-white/60 text-sm mt-1">Click to use</div>
+                <div className="text-black/60 dark:text-white/60 text-sm mt-1">Click to use</div>
               </motion.div>
             ))}
           </div>

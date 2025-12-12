@@ -66,3 +66,30 @@
   /* background: #092041; */
   /* color: white; */
 /* } */
+
+
+.break-words li{
+  margin-top: 1rem;
+  list-style:number;
+  /* list-style-position: inside; */
+  font-weight: 400;
+  width: 120%;
+}
+.break-words pre{
+  padding: .1rem 0;
+  margin: 1.2rem 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.418);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.418);
+
+}
+
+.break-words li:first-child{
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(128, 128, 128, 0.418);
+}
+.break-words li:last-child{
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.418);
+}
