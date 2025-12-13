@@ -303,7 +303,7 @@ export default function SupportPage() {
     try {
       // const renderedApiUrl = process.env.NODE_ENV === "production";
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/genai`,
+        `https://mern-backend-f5oi.onrender.com/api/genai`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
