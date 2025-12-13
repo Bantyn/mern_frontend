@@ -134,7 +134,7 @@ export default function SignUpPage() {
               <input
                 name="firstName"
                 type="text"
-                placeholder="Dollar"
+                placeholder="First name"
                 value={formData.firstName}
                 onChange={handleChange}
                 required
@@ -143,7 +143,7 @@ export default function SignUpPage() {
               <input
                 name="lastName"
                 type="text"
-                placeholder="Gill"
+                placeholder="Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
                 required
@@ -154,7 +154,7 @@ export default function SignUpPage() {
             <input
               name="email"
               type="email"
-              placeholder="EXAMPLE@FLOWERSANDSAINTS.COM.AU"
+              placeholder="exaple123@gmail.com"
               value={formData.email}
               onChange={handleChange}
               required

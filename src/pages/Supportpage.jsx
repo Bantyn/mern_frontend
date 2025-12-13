@@ -303,7 +303,7 @@ export default function SupportPage() {
     try {
       // const renderedApiUrl = process.env.NODE_ENV === "production";
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_URL || API_URL}/api/genai`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/genai`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
