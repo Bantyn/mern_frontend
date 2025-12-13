@@ -2,22 +2,29 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+// =============================
+// Config
+// =============================
+const BACKEND_URL = `https://mern-backend-f5oi.onrender.com` || `${window.location.protocol}//${window.location.hostname}:5000 `;
+
+// =============================
+// Main Page
+// =============================
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    password: ""
+    password: "",
   });
 
-  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000`;
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [darkMode, setDarkMode] = useState(true); // Theme toggle
+  const [darkMode] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -26,22 +33,16 @@ export default function SignUpPage() {
     setMessage("");
 
     try {
-      await axios.post(
-        `${"https://mern-backend-f5oi.onrender.com" || API_URL}/api/auth/register`,
-        formData
-      );
-
+      await axios.post(`${BACKEND_URL}/api/auth/register`, formData);
       setMessage("Account created successfully! Redirecting...");
       setFormData({ firstName: "", lastName: "", email: "", password: "" });
 
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 1200);
+      setTimeout(() => (window.location.href = "/login"), 1200);
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -52,43 +53,9 @@ export default function SignUpPage() {
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-600/10 dark:bg-blue-500/30 blur-[160px] animate-pulse delay-500" />
       </div>
 
-      {/* Left Panel */}
-      <div className="relative hidden lg:flex w-1/2 p-8 flex-col justify-center z-10">
-        <div className="h-full w-full rounded-[40px] bg-gradient-to-b dark:from-gray-900 dark:via-gray-800 dark:to-black from-purple-500/40 via-purple-700/40 to-black/40 backdrop-blur-xl border border-white/10 p-12 flex flex-col justify-center transition-colors duration-700">
-          <h1 className="text-4xl font-bold mb-4 tracking-wide text-black dark:text-white">
-            Flowers & Saints
-          </h1>
-          <p className="text-lg text-gray-300 dark:text-gray-400 mb-12">
-            Begin your journey with a powerful and elegant workflow experience.
-          </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 font-medium uppercase tracking-widest">
-            ✨ Trusted by 10K+ creators worldwide
-          </p>
-
-          <div className="space-y-6">
-            {[1, 2, 3].map((step) => (
-              <div
-                key={step}
-                className="flex items-center gap-4 p-5 bg-white/10 dark:bg-gray-800/20 rounded-2xl backdrop-blur-lg hover:bg-white/20 dark:hover:bg-gray-700/30 transition"
-              >
-                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-white dark:bg-gray-200 text-black dark:text-gray-900 font-bold">
-                  {step}
-                </div>
-                <p className="text-lg font-medium text-black dark:text-white">
-                  {step === 1 && "Create your Account"}
-                  {step === 2 && "Set up your Workspace"}
-                  {step === 3 && "Complete your Profile"}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
+      <LeftInfoPanel />
       {/* Right Panel */}
       <div className="flex w-full lg:w-1/2 items-center justify-center p-6 z-10 relative">
-        
-
         <div className="w-full max-w-md rounded-[40px] px-8 py-10 bg-white/20 dark:bg-black/40 backdrop-blur-xl border border-white/10 dark:border-gray-700/40 shadow-xl transition-colors duration-700">
           <h2 className="text-3xl font-bold mb-2 text-black dark:text-white">
             Create Account
@@ -97,32 +64,26 @@ export default function SignUpPage() {
             Fill in your details to get started.
           </p>
 
-          {/* Social Login Buttons */}
+          {/* Social Login */}
           <div className="grid gap-4 mb-8">
-            <button className="flex items-center text-white/50 justify-center gap-3 h-12 bg-white/10 dark:bg-gray-700/20 hover:bg-white/20 dark:hover:bg-gray-600/30 transition rounded-xl border border-gray-700">
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                className="h-6"
-              />
+            <SocialButton icon="https://www.svgrepo.com/show/475656/google-color.svg">
               Continue with Google
-            </button>
-
-            <button className="flex items-center text-white/50 justify-center gap-3 h-12 bg-white/10 dark:bg-gray-700/20 hover:bg-white/20 dark:hover:bg-gray-600/30 transition rounded-xl border border-gray-700">
-              <img
-                src="https://www.svgrepo.com/show/512317/github-142.svg"
-                className="h-6 invert dark:invert-0"
-              />
+            </SocialButton>
+            <SocialButton
+              icon="https://www.svgrepo.com/show/512317/github-142.svg"
+              invert
+            >
               Continue with GitHub
-            </button>
+            </SocialButton>
           </div>
 
           {/* Divider */}
           <div className="relative mb-8">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
+              <div className="w-full border-t border-gray-300 dark:border-gray-700" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white dark:bg-black text-gray-400 dark:text-gray-400">
+              <span className="px-4 bg-white dark:bg-black text-gray-400">
                 Or continue with email
               </span>
             </div>
@@ -131,51 +92,41 @@ export default function SignUpPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-4">
-              <input
+              <AuthInput
                 name="firstName"
-                type="text"
                 placeholder="First name"
                 value={formData.firstName}
                 onChange={handleChange}
                 required
-                className="h-12 rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-4 focus:ring-2 focus:ring-purple-500 outline-none text-gray-900 dark:text-white transition-colors duration-500"
               />
-              <input
+              <AuthInput
                 name="lastName"
-                type="text"
-                placeholder="Last Name"
+                placeholder="Last name"
                 value={formData.lastName}
                 onChange={handleChange}
                 required
-                className="h-12 rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-4 focus:ring-2 focus:ring-purple-500 outline-none text-gray-900 dark:text-white transition-colors duration-500"
               />
             </div>
 
-            <input
+            <AuthInput
               name="email"
               type="email"
-              placeholder="exaple123@gmail.com"
+              placeholder="example123@gmail.com"
               value={formData.email}
               onChange={handleChange}
               required
-              className="h-12 w-full rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-4 focus:ring-2 focus:ring-purple-500 outline-none text-gray-900 dark:text-white transition-colors duration-500"
             />
 
-            <div>
-              <input
-                name="password"
-                type="password"
-                placeholder="Your best Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                minLength={8}
-                className="h-12 w-full rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-4 focus:ring-2 focus:ring-purple-500 outline-none text-gray-900 dark:text-white transition-colors duration-500"
-              />
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                Must be at least 8 characters.
-              </p>
-            </div>
+            <AuthInput
+              name="password"
+              type="password"
+              placeholder="Your best Password"
+              value={formData.password}
+              onChange={handleChange}
+              minLength={8}
+              required
+              hint="Must be at least 8 characters."
+            />
 
             {message && (
               <p className="text-center text-sm text-purple-500 dark:text-purple-400">
@@ -206,3 +157,75 @@ export default function SignUpPage() {
     </div>
   );
 }
+
+
+
+// =============================
+// Reusable Components
+// =============================
+
+// Auth Input
+function AuthInput({ label, hint, ...props }) {
+  return (
+    <div>
+      <input
+        {...props}
+        className="h-12 w-full rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-4 focus:ring-2 focus:ring-purple-500 outline-none text-gray-900 dark:text-white transition-colors duration-500"
+      />
+      {hint && (
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          {hint}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// Social Button
+function SocialButton({ icon, children, invert }) {
+  return (
+    <button className="flex items-center justify-center gap-3 h-12 bg-white/10 dark:bg-gray-700/20 hover:bg-white/20 dark:hover:bg-gray-600/30 transition rounded-xl border border-gray-700 text-white/50">
+      <img src={icon} className={`h-6 ${invert ? "invert dark:invert-0" : ""}`} />
+      {children}
+    </button>
+  );
+}
+
+// Left Info Panel
+function LeftInfoPanel() {
+  return (
+    <div className="relative hidden lg:flex w-1/2 p-8 flex-col justify-center z-10">
+      <div className="h-full w-full rounded-[40px] bg-gradient-to-b dark:from-gray-900 dark:via-gray-800 dark:to-black from-purple-500/40 via-purple-700/40 to-black/40 backdrop-blur-xl border border-white/10 p-12 flex flex-col justify-center transition-colors duration-700">
+        <h1 className="text-4xl font-bold mb-4 tracking-wide text-black dark:text-white">
+          Flowers & Saints
+        </h1>
+        <p className="text-lg text-gray-300 dark:text-gray-400 mb-12">
+          Begin your journey with a powerful and elegant workflow experience.
+        </p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 font-medium uppercase tracking-widest">
+          ✨ Trusted by 10K+ creators worldwide
+        </p>
+
+        <div className="space-y-6">
+          {["Create your Account", "Set up your Workspace", "Complete your Profile"].map(
+            (text, index) => (
+              <div
+                key={text}
+                className="flex items-center gap-4 p-5 bg-white/10 dark:bg-gray-800/20 rounded-2xl backdrop-blur-lg hover:bg-white/20 dark:hover:bg-gray-700/30 transition"
+              >
+                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-white dark:bg-gray-200 text-black dark:text-gray-900 font-bold">
+                  {index + 1}
+                </div>
+                <p className="text-lg font-medium text-black dark:text-white">
+                  {text}
+                </p>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+

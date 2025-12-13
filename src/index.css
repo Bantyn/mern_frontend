@@ -1,4 +1,6 @@
 @import "tailwindcss";
+
+/* Animations */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -9,24 +11,6 @@
     transform: translateY(0);
   }
 }
-
-.animate-fadeInUp {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.animate-fadeIn {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.delay-150 {
-  animation-delay: 0.15s;
-}
-
-.delay-300 {
-  animation-delay: 0.3s;
-}
-
-/* --- Custom Animations --- */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -37,7 +21,6 @@
     transform: translateY(0);
   }
 }
-
 @keyframes subtlePulse {
   0%, 100% {
     opacity: 0.8;
@@ -52,26 +35,32 @@
 .animate-fadeInUp {
   animation: fadeInUp 0.8s ease-out forwards;
 }
-
+.animate-fadeIn {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+.delay-150 {
+  animation-delay: 0.15s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
 .animate-pulse-soft {
   animation: subtlePulse 6s ease-in-out infinite;
 }
 
+
+
+
+/* Classes */
 * {
   scrollbar-width: none;
-  /* scrollbar-color: #b1b1b1 #092041; */
-  /* scroll-behavior:smooth; */
 }
-/* *::selection{ */
-  /* background: #092041; */
-  /* color: white; */
-/* } */
-
-
 .break-words li{
   margin-top: 1rem;
   list-style:number;
-  /* list-style-position: inside; */
   font-weight: 400;
   width: 120%;
 }
@@ -104,3 +93,37 @@
 .group:hover .animate-shake {
   animation: shake 0.5s ease-in-out;
 }
+.bento-item {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(168, 85, 247, 0.15),
+    transparent 40%
+  );
+  transition: background 0.5s ease;
+}
+
+/* Bento Grid Layout */
+.bento-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+/* Tablet */
+@media (min-width: 640px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 180px;
+  }
+}
+

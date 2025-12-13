@@ -18,12 +18,13 @@ export default function HeroScrollDemo() {
               }}
               viewport={{ once: true }}
             >
-              <h1 className="text-4xl font-semibold text-black dark:text-white">
-                Unleash the power of <br />
-                <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
-                  Scroll Animations
-                </span>
-              </h1>
+             <h1 className="text-4xl font-semibold text-black dark:text-white">
+  Bring your ideas to life with <br />
+  <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+    Smooth, Intelligent Animations
+  </span>
+</h1>
+
             </motion.div>
           </>
         }

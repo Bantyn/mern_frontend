@@ -1,109 +1,113 @@
-import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
+
+// Icons
+import {
+  Home,
+  Info,
+  Phone,
+  Upload,
+  MessageCircle,
+  LogIn,
+  UserPlus,
+  LogOut,
+  Bot,
+} from "lucide-react";
+import ProfileDropdown from "./ui/ProfileDropdown.jsx";
+import ActionSearchBar from "./ui/searchBar/ActionSearchBar";
+import clsx from "clsx";
 
 export default function Navbar() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-  const [open, setOpen] = useState(false);
-
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("");
   const isLoggedIn = Boolean(localStorage.getItem("token"));
 
-  // MENUS
-  const loggedInMenu = ["Home", "About", "Contact", "Upload", "Support", "Logout"];
-  const guestMenu = ["About", "Contact", "Login", "Signup"];
+  // MENU CONFIG
+  const loggedInItems = [
+    { name: "Home", url: "/home", icon: Home },
+    { name: "About", url: "/about", icon: Info },
+    { name: "Support", url: "/support", icon: Bot },
+    { name: "Contact", url: "/contact", icon: Phone },
+    // After put here profile
+    { name: "Upload", url: "/upload", icon: Upload },
+    { name: "Logout", url: "/logout", icon: LogOut },
+  ];
 
-  const menuItems = isLoggedIn ? loggedInMenu : guestMenu;
+  const guestItems = [
+    { name: "Logo", url: "/", icon: Home },
+    { name: "About", url: "/about", icon: Info },
+    { name: "Contact", url: "/contact", icon: Phone },
+    { name: "Login", url: "/login", icon: LogIn },
+    { name: "Signup", url: "/signup", icon: UserPlus },
+  ];
+
+  const items = isLoggedIn ? loggedInItems : guestItems;
+
+  // Detect active route
+  useEffect(() => {
+    const current = items.find((item) => location.pathname === item.url);
+    if (current) setActiveTab(current.name);
+  }, [location.pathname]);
 
   return (
-    <motion.nav
-      ref={ref}
-      initial={{ y: -30, opacity: 0 }}
-      animate={isInView ? { y: 0, opacity: 1 } : {}}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      className="
-        dark:bg-black/10 bg-white/10  backdrop-blur-xs top-0 z-50 border border-white/10
-        fixed left-0 right-0 w-[90%] mx-auto px-10 mb-3 shadow-2xl
-        dark:shadow-purple-600/10  rounded-b-xl overflow-hidden
-      "
-    >
-      <div className="container mx-auto py-4 px-6 flex justify-between items-center">
+    <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50">
+      <div className="flex items-center gap-2 bg-white/10 dark:bg-black/30 backdrop-blur-sm border border-white/10 px-2 py-2 rounded-full shadow-xl shadow-amber-50/3">
+      <Link to="/home" className="hidden md:block px-4 text-lg font-extrabold tracking-wide bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent">
+  ELECTRA
+</Link>
 
-        {/* LOGO */}
-        <Link
-          to="/"
-          className="text-2xl font-bold tracking-wide text-black dark:text-white hover:text-violet-950 dark:hover:text-violet-300 transition"
-        >
-          MERN Project
-        </Link>
+        {items.map((item) => {
+          const Icon = item.icon;
+          const isActive = activeTab === item.name;
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-10 dark:text-gray-300  text-lg">
-          {menuItems.map((item, i) => (
-            <motion.div
-              key={item}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
+          return (
+            
+            <Link
+              key={item.name}
+              to={item.url}
+              onClick={() => setActiveTab(item.name)}
+              className={clsx(
+                "relative px-5 py-2 rounded-full text-sm font-semibold transition-colors",
+                "text-black/70 dark:text-white/70 hover:text-black dark:hover:text-violet-400",
+                isActive && "text-black dark:text-violet-400"
+              )}
             >
-              <Link
-                to={
-                  item === "Home"
-                    ? "/home"
-                    : `/${item.toLowerCase()}`
-                }
-                className="relative group px-1"
-              >
-                <span className="dark:hover:text-white hover:text-black/80 dark:font-bold transition-all duration-300">{item}</span>
-                <span className="
-                  absolute left-0 -bottom-1 h-[2px] w-0 
-                  bg-violet-950 dark:bg-purple-400 group-hover:w-full 
-                  transition-all duration-300 rounded-full
-                "></span>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+              {/* Desktop Text */}
+              <span className="hidden md:inline">{item.name}</span>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden dark:text-white/80 text-black/80 dark:hover:text-white hover:text-black
-          transition ease-in-out duration-300"
-        >
-          {open ? <X size={28} /> : <Menu size={28} />}
-        </button>
+              {/* Mobile Icon */}
+              <span className="md:hidden">
+                <Icon size={20} strokeWidth={2.2} />
+              </span>
+
+              {/* Active Animated Lamp */}
+              {isActive && (
+                <motion.div
+                  layoutId="active-pill"
+                  className="absolute inset-0 rounded-full bg-black/10 dark:bg-violet-400/10 -z-10"
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 25,
+                  }}
+                >
+                  {/* Glow */}
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-black dark:bg-violet-300 rounded-t-full">
+                    <div className="absolute w-12 h-6 bg-black/30 md:dark:bg-violet-400/40 dark:bg-violet-400/20 blur-md -top-2 -left-2" />
+                    <div className="absolute w-8 h-6 bg-black/30 md:dark:bg-violet-400/40 dark:bg-violet-400/20 blur-md -top-1" />
+                    <div className="absolute w-4 h-4 bg-black/30 md:dark:bg-violet-400/40 dark:bg-violet-400/20 blur-sm top-0 left-2" />
+                  </div>
+                </motion.div>
+              )}
+            </Link>
+          );
+        })}
+      <ActionSearchBar />
+      {isLoggedIn && <ProfileDropdown />}
+
       </div>
 
-      {/* Mobile Dropdown Menu */}
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden"
-      >
-        <div className="flex flex-col gap-1 text-center font-bold pb-4 dark:text-gray-300  text-lg">
-
-          {menuItems.map((item) => (
-            <Link
-              key={item}
-              to={
-                item === "Home"
-                  ? "/home"
-                  : `/${item.toLowerCase()}`
-              }
-              onClick={() => setOpen(false)}
-              className="py-4 backdrop-blur-3xl bg-black/10 border-b border-white/10 hover:border-white/30 hover:bg-white/5 rounded-full dark:hover:text-white transition"
-            >
-              {item}
-            </Link>
-          ))}
-        </div>
-      </motion.div>
-    </motion.nav>
+    </div>
   );
 }
-
-
-

@@ -3,7 +3,7 @@ import { Instagram, Github, Linkedin, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 const SocialConnect = () => {
   return (
-    <div className="min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center p-4 w-full transition-all duration-500 -mt-150">
+    <div className="min-h-screen dark:bg-black flex flex-col items-center justify-center p-4 w-full transition-all duration-500 -mt-150">
 
       {/* Heading */}
       <motion.div 
@@ -36,7 +36,7 @@ const SocialConnect = () => {
           viewport={{ once: true }}
       className="w-full max-w-2xl">
         <div
-          className="rounded-3xl bg-gray-100 dark:bg-white/5 border border-gray-300/50 dark:border-gray-700/50 
+          className="rounded-3xl bg-gray-100/20 dark:bg-white/5 border border-gray-300/50 dark:border-gray-700/50 
            backdrop-blur-3xl 
           p-8 transition-all duration-500 hover:scale-[1.01]"
         >
@@ -87,7 +87,7 @@ const SocialIcon = ({ label, hoverBg, hoverShadow, icon }) => {
       <div
         className="
         relative w-24 h-24 rounded-full flex items-center justify-center 
-        bg-gray-200 dark:bg-white/5 border border-gray-300 dark:border-white/10
+        bg-gray-200/5 dark:bg-white/5 border border-gray-300 dark:border-white/10
         shadow-xl backdrop-blur-xl overflow-hidden
 
         /* Floating Animation */
@@ -127,8 +127,6 @@ const SocialIcon = ({ label, hoverBg, hoverShadow, icon }) => {
 };
 
 export default SocialConnect;
-
-/* Floating Keyframe (Tailwind-compatible) */
 const floatStyle = document.createElement("style");
 floatStyle.innerHTML = `
 @keyframes float {

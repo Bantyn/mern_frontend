@@ -5,7 +5,6 @@ export default function Footer() {
       {/* Glow Background Animated */}
       <div className="absolute -top-20 left-0 h-56 w-56 bg-purple-500/20 blur-[120px] rounded-full animate-pulse"></div>
       <div className="absolute bottom-0 right-0 h-56 w-56 bg-blue-500/20 blur-[120px] rounded-full animate-pulse"></div>
-
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-16 relative z-10">
 
         {/* Brand Section */}
