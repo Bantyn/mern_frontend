@@ -34,6 +34,7 @@ export default function HeroScrollDemo() {
           className="mx-auto rounded-2xl object-cover h-full object-left-top"
           draggable="false"
         />
+        
       </ContainerScroll>
     </div>
   );
