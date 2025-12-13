@@ -3,7 +3,7 @@ import { Instagram, Github, Linkedin, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 const SocialConnect = () => {
   return (
-    <div className="min-h-screen dark:bg-black flex flex-col items-center justify-center p-4 w-full transition-all duration-500 -mt-150">
+    <div className="min-h-screen dark:bg-gredient-to-br from-black-950/50 via-black-900/50 to-black-950/50 flex flex-col items-center justify-center p-4 w-full transition-all duration-500 -mt-150">
 
       {/* Heading */}
       <motion.div 
