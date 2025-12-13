@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-// Layouts
+// Diffrent types of Layouts
 import ClientLayout from "./Layouts/ClientLayout.jsx";
 import AuthLayout from "./Layouts/AuthLayout.jsx";
 import AdminLayout from "./Layouts/AdminLayout.jsx";
@@ -16,11 +16,11 @@ import SignInPage from "./pages/SigInPage.jsx";
 import LogoutPage from "./pages/Logoutpage.jsx";
 import SupportPage from "./pages/Supportpage.jsx";
 
-// Security
+// Maintain Security
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import AdminRoute from "./components/AdminRoute.jsx";
 
-// Auth
+// Authantication Pages
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import VerifyOtp from "./pages/VerifyOtp.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
@@ -33,7 +33,7 @@ function App() {
       <Route path="/verify-otp" element={<VerifyOtp />} />
       <Route path="/reset-password" element={<ResetPassword />} />
 
-      {/* 🌐 PUBLIC PAGES (Anyone can access) */}
+      {/* Public Pages for all type of website user (Anyone can access) */}
       <Route element={<ClientLayout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -41,7 +41,7 @@ function App() {
         <Route path="/support" element={<SupportPage />} />
       </Route>
 
-      {/* 🔒 PROTECTED PAGES (Only Logged-in Users) */}
+      {/* locked Page (Only Logged-in Users) */}
       <Route element={<ClientLayout />}>
         <Route
           path="/home"
@@ -69,13 +69,13 @@ function App() {
         />
       </Route>
 
-      {/* 🔐 AUTH PAGES (No need login) */}
+      {/* AuthPage (No need login) */}
       <Route element={<AuthLayout />}>
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
       </Route>
 
-      {/* 🛠 ADMIN ONLY */}
+      {/* Only Admin can Route this pafe */}
       <Route element={<AdminLayout />}>
         <Route
           path="/admin"

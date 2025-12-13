@@ -2,14 +2,24 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
+// ================================
+// Urls
+// ================================
+const API_URL = `${window.location.protocol}//${window.location.hostname}:5000`;
+const BACKEND_URL = "https://mern-backend-f5oi.onrender.com";
+
+
+
+// ================================
+// MAIN SIGN IN PAGE
+// ================================
 export default function SignInPage() {
   const navigate = useNavigate();
-  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000`;
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [darkMode, setDarkMode] = useState(true); // Dark/light mode toggle
+  const [darkMode] = useState(true);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,7 +31,7 @@ export default function SignInPage() {
 
     try {
       const res = await axios.post(
-        `${"https://mern-backend-f5oi.onrender.com" || API_URL}/api/auth/login`,
+        `${BACKEND_URL || API_URL}/api/auth/login`,
         formData
       );
 
@@ -31,106 +41,137 @@ export default function SignInPage() {
       navigate("/home");
     } catch (error) {
       setErrorMsg(error.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
     <div className={`${darkMode ? "dark" : ""} flex min-h-screen`}>
       <div className="flex w-full">
-        {/* LEFT PANEL - Large visual */}
-        <div className="hidden lg:flex w-1/2 relative p-8 flex-col justify-center">
-          <div className="h-full w-full rounded-[40px] bg-gradient-to-b dark:from-gray-900 dark:via-gray-800 dark:to-black from-purple-500/40 via-purple-700/40 to-black/40 backdrop-blur-xl border border-white/10 p-12 flex flex-col justify-center transition-colors duration-700">
-            <div>
-              <h1 className="text-5xl font-black mb-4 tracking-tight bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                Welcome Back
-              </h1>
-              <div className="h-1 w-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" />
-            </div>
+        {/* Left Visual Panel */}
+        <LeftVisualPanel />
 
-            <p className="text-lg mt-4 text-gray-300 dark:text-gray-200 leading-relaxed max-w-md">
-              Jump back into your creative workspace and pick up where you left
-              off. Your projects await.
-            </p>
 
-            <p className="text-sm mt-5 text-gray-500 dark:text-gray-400 font-medium uppercase tracking-widest">
-              ✨ Your workspace, your rules
-            </p>
-          </div>
-
-          {/* Background Glows */}
-          <div className="absolute inset-0 z-0">
-            <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-purple-600/20 dark:bg-purple-500/40 blur-[120px] animate-pulse" />
-            <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-600/10 dark:bg-blue-500/30 blur-[160px] animate-pulse delay-500" />
-          </div>
-        </div>
-
-        {/* RIGHT PANEL - Login Form */}
+        {/* Right Form Panel */}
         <div className="flex w-full lg:w-1/2 items-center justify-center p-6 z-10 relative">
-          
-
-          <div className="w-full max-w-md rounded-[40px] px-8 py-10 bg-white/20 dark:bg-black/40 backdrop-blur-xl border border-white/10 dark:border-gray-700/40 shadow-xl transition-colors duration-700">
-            <h2 className="text-3xl font-bold mb-2 text-black dark:text-white">
-              Welcome Back
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
-              Log in to continue your journey.
-            </p>
-
-            {errorMsg && (
-              <p className="text-red-500 dark:text-red-400 mb-4 bg-red-100/30 dark:bg-red-900/30 py-2 px-3 rounded-lg border border-red-300/40 dark:border-red-700/40">
-                {errorMsg}
-              </p>
-            )}
-
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="h-12 w-full rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-4 focus:ring-2 focus:ring-purple-500 outline-none text-gray-900 dark:text-white transition-colors duration-500"
-              />
-
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className="h-12 w-full rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-4 focus:ring-2 focus:ring-purple-500 outline-none text-gray-900 dark:text-white transition-colors duration-500"
-              />
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="h-12 w-full rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 text-white font-medium hover:opacity-90 transition shadow-lg shadow-purple-500/20"
-              >
-                {loading ? "Signing In..." : "Sign In"}
-              </button>
-
-              <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-                Don't have an account?{" "}
-                <Link
-                  to="/signup"
-                  className="text-purple-500 dark:text-purple-400 hover:underline"
-                >
-                  Create Account
-                </Link>
-              </p>
-              <p className="text-right mt-2 text-sm text-purple-500 dark:text-purple-400">
-                <Link to="/forgot-password" className="hover:underline">
-                  Forgot Password?
-                </Link>
-              </p>
-            </form>
-          </div>
+          <SignInForm
+            formData={formData}
+            loading={loading}
+            errorMsg={errorMsg}
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+          />
         </div>
       </div>
     </div>
   );
 }
+
+
+
+
+// ================================
+// Reusable Input Componen
+// ================================
+const AuthInput = ({ type, name, value, onChange, placeholder }) => (
+  <input
+    type={type}
+    name={name}
+    value={value}
+    onChange={onChange}
+    placeholder={placeholder}
+    required
+    className="h-12 w-full rounded-xl bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-4 focus:ring-2 focus:ring-purple-500 outline-none text-gray-900 dark:text-white transition-colors duration-500"
+  />
+);
+
+// ================================
+// LeftSide Panel
+// ================================
+const LeftVisualPanel = () => (
+  <div className="hidden lg:flex w-1/2 relative p-8 flex-col justify-center">
+    <div className="h-full w-full rounded-[40px] bg-gradient-to-b dark:from-gray-900 dark:via-gray-800 dark:to-black from-purple-500/40 via-purple-700/40 to-black/40 backdrop-blur-xl border border-white/10 p-12 flex flex-col justify-center transition-colors duration-700">
+      <div>
+        <h1 className="text-5xl font-black mb-4 tracking-tight bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+          Welcome Back
+        </h1>
+        <div className="h-1 w-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" />
+      </div>
+
+      <p className="text-lg mt-4 text-gray-300 dark:text-gray-200 leading-relaxed max-w-md">
+        Jump back into your creative workspace and pick up where you left off.
+        Your projects await.
+      </p>
+
+      <p className="text-sm mt-5 text-gray-500 dark:text-gray-400 font-medium uppercase tracking-widest">
+        ✨ Your workspace, your rules
+      </p>
+    </div>
+
+    {/* Background Glows */}
+    <div className="absolute inset-0 z-0">
+      <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-purple-600/20 dark:bg-purple-500/40 blur-[120px] animate-pulse" />
+      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-600/10 dark:bg-blue-500/30 blur-[160px] animate-pulse delay-500" />
+    </div>
+  </div>
+);
+
+// ================================
+// SIGN IN FORM
+// ================================
+const SignInForm = ({ formData, loading, errorMsg, onChange, onSubmit }) => (
+  <div className="w-full max-w-md rounded-[40px] px-8 py-10 bg-white/20 dark:bg-black/40 backdrop-blur-xl border border-white/10 dark:border-gray-700/40 shadow-xl transition-colors duration-700">
+    <h2 className="text-3xl font-bold mb-2 text-black dark:text-white">
+      Welcome Back
+    </h2>
+    <p className="text-gray-600 dark:text-gray-400 mb-8">
+      Log in to continue your journey.
+    </p>
+
+    {errorMsg && (
+      <p className="text-red-500 dark:text-red-400 mb-4 bg-red-100/30 dark:bg-red-900/30 py-2 px-3 rounded-lg border border-red-300/40 dark:border-red-700/40">
+        {errorMsg}
+      </p>
+    )}
+
+    <form className="space-y-6" onSubmit={onSubmit}>
+      <AuthInput
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={onChange}
+        placeholder="Enter your email"
+      />
+
+      <AuthInput
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={onChange}
+        placeholder="Enter your password"
+      />
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="h-12 w-full rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 text-white font-medium hover:opacity-90 transition shadow-lg shadow-purple-500/20"
+      >
+        {loading ? "Signing In..." : "Sign In"}
+      </button>
+
+      <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+        Don&apos;t have an account?{" "}
+        <Link to="/signup" className="text-purple-500 hover:underline">
+          Create Account
+        </Link>
+      </p>
+
+      <p className="text-right mt-2 text-sm text-purple-500">
+        <Link to="/forgot-password" className="hover:underline">
+          Forgot Password?
+        </Link>
+      </p>
+    </form>
+  </div>
+);

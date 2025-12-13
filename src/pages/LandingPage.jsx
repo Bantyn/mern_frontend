@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { TestimonialsColumn } from "../components/ui/testominals/testimonials-columns-1.jsx";
 
+// Testimonials Datas fetching Reviews API in Future 
 const testimonials = [
   {
     text: "This Web3-powered platform transformed the way our organization operates. From smart automation to real-time finance tracking, everything feels futuristic and incredibly efficient.",
@@ -60,10 +61,12 @@ const testimonials = [
   },
 ];
 
+// Splitting Testimonials into 3 Columns
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
 const thirdColumn = testimonials.slice(6, 9);
 
+// Icons
 import {
   MdAdminPanelSettings,
   MdSecurity,
@@ -75,35 +78,50 @@ import {
 import { section } from "framer-motion/client";
 
 export default function Web3HeroAnimated() {
-  const pillars = [
+ 
+
+  return (
+    <>
+      {/* LandingHero Section */}
+      <LandingHero/>
+
+      {/* Second Section */}
+      <SecondaryHero/>
+
+      {/* Testimonial */}
+      <Testimonials/>
+
+      {/* Last Part */}
+      <LastPart/>
+    </>
+  );
+}
+
+
+// ===============================
+// Landing Hero Page Section
+// ===============================
+export const LandingHero = () => {
+  const [isMounted, setIsMounted] = useState(false);
+   const pillars = [
     92, 84, 78, 70, 62, 54, 46, 34, 18, 34, 46, 54, 62, 70, 78, 84, 92,
   ];
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsMounted(true), 100);
     return () => clearTimeout(timer);
   }, []);
-
-  return (
-    <>
-      <section className="relative pt-20 isolate h-screen overflow-hidden bg-white/90 dark:bg-black text-black dark:text-white transition-all duration-500">
+  return(<>
+      <section className="relative w-full pt-20 isolate h-screen overflow-hidden bg-white/90 dark:bg-black text-black dark:text-white transition-all duration-500">
         {/* Background gradients */}
         <div
           aria-hidden
           className="absolute inset-0 -z-30 transition-all duration-500"
           style={{
             backgroundImage: [
-              // Soft center glow
               "radial-gradient(60% 50% at 50% 50%, rgba(255,255,255,0.35), rgba(245,245,245,0.00))",
-
-              // Left-side subtle warm glow
               "radial-gradient(55% 45% at 20% 10%, rgba(255,228,210,0.20), transparent 70%)",
-
-              // Right-side cool soft glow
               "radial-gradient(55% 50% at 85% 20%, rgba(205,225,255,0.18), transparent 65%)",
-
-              // Soft depth fade
               "linear-gradient(to bottom, rgba(0,0,0,0.06), rgba(0,0,0,0))",
             ].join(","),
           }}
@@ -238,7 +256,15 @@ export default function Web3HeroAnimated() {
           </div>
         </div>
       </section>
+  </>)
+}
 
+// ===============================
+// Secondary Hero Page Section
+// ===============================
+const SecondaryHero = () =>  {
+  return(
+    <>
       <section className="bg-white/90 dark:bg-black text-black dark:text-white transition-all duration-500">
         <motion.div
           initial={{ opacity: 0.0, y: 40 }}
@@ -263,8 +289,15 @@ export default function Web3HeroAnimated() {
           </button> */}
         </motion.div>
       </section>
-
-      {/* Testimonial */}
+    </>
+  )
+} 
+// ===============================
+// Testimonials Section
+// =============================== 
+const Testimonials = () => {
+  return(
+    <>
       <section className="bg-background my-20 relative  bg-white/90 dark:bg-black text-black dark:text-white transition-all duration-500">
         <div className="container z-10 mx-auto">
           <motion.div
@@ -308,8 +341,15 @@ export default function Web3HeroAnimated() {
           </div>
         </div>
       </section>
-
-      {/* Last Part */}
+    </>
+  )
+}
+// ===============================
+// Last Part Section
+// ===============================
+const LastPart = () => {
+  return(
+    <>
       <section>
         <div className="h-screen -mb-150 w-full overflow-hidden">
           <div className="mx-auto mt-32  w-full max-w-2xl">
@@ -411,5 +451,5 @@ export default function Web3HeroAnimated() {
         </motion.div>
       </section>
     </>
-  );
+  )
 }
