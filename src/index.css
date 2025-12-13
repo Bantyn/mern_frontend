@@ -93,3 +93,14 @@
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(128, 128, 128, 0.418);
 }
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  20% { transform: translateX(-4px) rotate(-4deg); }
+  40% { transform: translateX(4px) rotate(4deg); }
+  60% { transform: translateX(-4px) rotate(-4deg); }
+  80% { transform: translateX(4px) rotate(4deg); }
+}
+
+.group:hover .animate-shake {
+  animation: shake 0.5s ease-in-out;
+}

@@ -2,7 +2,7 @@
 
 import React from "react";
 import HeroScrollDemo from "../components/ui/scrollScreen/HeroScrollDemo"; // <-- correct import path
-
+import SocialConnect from "../components/ui/contactElemet/SocialConnect";
 export default function AboutPage() {
     return (
         <div className="w-full">
@@ -17,6 +17,7 @@ export default function AboutPage() {
                 </p>
             </div>
             <HeroScrollDemo />
+            <SocialConnect/>
         </div>
     );
 }

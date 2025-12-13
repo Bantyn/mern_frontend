@@ -98,9 +98,24 @@ function formatMessage(text) {
         ),
 
         // Headings responsive
-        h1: ({node, ...props}) => <h1 className="md:w-[80%] w-[62%] text-2xl sm:text-3xl font-bold dark:text-white my-3" {...props} />,
-        h2: ({node, ...props}) => <h2 className="md:w-[80%] w-[62%] text-xl sm:text-2xl font-semibold dark:text-white my-3" {...props} />,
-        h3: ({node, ...props}) => <h3 className="md:w-[80%] w-[62%] text-lg sm:text-xl font-semibold dark:text-white my-2" {...props} />,
+        h1: ({ node, ...props }) => (
+          <h1
+            className="md:w-[80%] w-[62%] text-2xl sm:text-3xl font-bold dark:text-white my-3"
+            {...props}
+          />
+        ),
+        h2: ({ node, ...props }) => (
+          <h2
+            className="md:w-[80%] w-[62%] text-xl sm:text-2xl font-semibold dark:text-white my-3"
+            {...props}
+          />
+        ),
+        h3: ({ node, ...props }) => (
+          <h3
+            className="md:w-[80%] w-[62%] text-lg sm:text-xl font-semibold dark:text-white my-2"
+            {...props}
+          />
+        ),
       }}
     >
       {text}
@@ -263,7 +278,7 @@ export default function SupportPage() {
     }
   };
 
-  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000` ;
+  const API_URL = `${window.location.protocol}//${window.location.hostname}:5000`;
   const [messages, setMessages] = useState([]);
 
   const handleSendMessage = async () => {
@@ -287,11 +302,14 @@ export default function SupportPage() {
     setIsTyping(true);
     try {
       // const renderedApiUrl = process.env.NODE_ENV === "production";
-      const response = await fetch(`${API_URL || import.meta.env.VITE_REACT_APP_BACKEND_URL }/api/genai`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL || API_URL}/api/genai`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMessage }),
+        }
+      );
 
       const data = await response.json();
       const botReply = data?.reply || "No response from server";
@@ -337,6 +355,16 @@ export default function SupportPage() {
     setRecentCommand(selectedCommand.label);
     setTimeout(() => setRecentCommand(null), 2000);
   };
+  const chatBoxRef = useRef(null);
+const messagesEndRef = useRef(null);
+
+useEffect(() => {
+  if (chatBoxRef.current) {
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  }
+}, [messages]);
+
+
 
   return (
     <div className="min-h-screen flex flex-col w-full items-center justify-center dark:bg-black-50 dark:text-white/70 p-6 relative overflow-hidden">
@@ -388,9 +416,10 @@ export default function SupportPage() {
             >
               <h1 className="text-4xl  mt-20 font-medium tracking-tight pb-1">
                 How can I help today?
+                
               </h1>
               <motion.div
-                className="h-px dark:bg-gray-700 hover:bg-gray-500 bg-black mx-auto mt-2 mb-6" 
+                className="h-px dark:bg-gray-700 hover:bg-gray-500 bg-black mx-auto mt-2 mb-6"
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ delay: 0.5, duration: 0.8 }}
@@ -408,7 +437,7 @@ export default function SupportPage() {
 
           {/* Chat Input */}
           <motion.div
-            className="relative bg-white/10  dark:bg-black/10 rounded-2xl  dark:border-gray-200/10 shadow-md hover:scale-[1.002] dark:shadow-white/5 hover:shadow-lg transition-all duration-300 flex flex-col"
+            className="relative bg-white/10  dark:bg-black/10 rounded-2xl  border border-gray-800/5 dark:border-gray-200/5 shadow-md hover:scale-[1.002] dark:shadow-white/5 hover:shadow-lg transition-all duration-300 flex flex-col"
             initial={{ scale: 0.98 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.1 }}
@@ -452,42 +481,40 @@ export default function SupportPage() {
               )}
             </AnimatePresence>
 
-            <div className="p-4 max-h-[60vh] overflow-y-auto flex flex-col gap-2">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={clsx(
-                    "max-w-[100%] md:max-w-[90%]  p-3 rounded-xl flex flex-col",
-                    msg.sender === "user"
-                      ? "bg-rose-400 dark:bg-rose-400/20 mt-3 px-5 py-3 border border-rose-400/20 text-white dark:text-white/70 font-normal ml-auto text-right"
-                      : "bg-gray-200 dark:bg-gray-100/20 mt-3 px-5 py-3  border border-gray-100/20 text-black dark:text-gray-200 font-semibold mr-auto text-left"
-                  )}
-                >
-                  {/* Message text */}
-                  <div className="break-words">
-                    {typeof msg.text === "string"
-                      ? formatMessage(msg.text)
-                      : msg.text}
-                  </div>
 
-                  {/* Timestamp */}
-                  <span className="text-[11px] text-gray-400 mt-1">
-                    {new Date(msg.timestamp).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </span>
-                </div>
-              ))}
+{/* messages */}
+<div
+  className="p-4 max-h-[60vh] overflow-y-scroll scroll-smooth flex flex-col gap-2"
+  ref={chatBoxRef}
+>
+  {messages.map((msg, index) => (
+    <div
+      key={index}
+      className={clsx(
+        "max-w-[100%] md:max-w-[90%] p-3 rounded-xl flex flex-col",
+        msg.sender === "user"
+          ? "bg-rose-400 dark:bg-rose-400/20 mt-3 px-5 py-3 border border-rose-400/20 text-white ml-auto text-right"
+          : "bg-gray-200 dark:bg-gray-100/20 mt-3 px-5 py-3 border border-gray-100/20 text-black mr-auto text-left"
+      )}
+    >
+      <div className="break-words">
+        {typeof msg.text === "string"
+          ? formatMessage(msg.text)
+          : msg.text}
+      </div>
 
-              {/* Typing indicator */}
-              {isTyping && (
-                <div className="max-w-[50%] p-3 bg-gray-100/30  text-gray-200 rounded-xl mr-auto flex items-center gap-1">
-                  <TypingDots />
-                  <span className="text-xs text-gray-500">Typing...</span>
-                </div>
-              )}
-            </div>
+      <span className="text-[11px] text-gray-400 mt-1">
+        {new Date(msg.timestamp).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </span>
+    </div>
+  ))}
+
+  {/* scroll target */}
+  <div ref={messagesEndRef}></div>
+</div>
 
             <div className="p-4">
               <Textarea
@@ -570,17 +597,19 @@ export default function SupportPage() {
               <motion.button
                 type="button"
                 onClick={handleSendMessage}
+                data-command-button="true"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={isTyping || !value.trim()}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
-                  value.trim()
-                    ? "bg-rose-700/20 border-1 border-rose-700 hover:bg-rose-700/80 hover:text-white border-1 border-rose/0 text-rose-700 shadow-lg active:scale-95"
-                    : "bg-rose-700/50 border-1 shadow-lg border-rose-700 text-rose-700 hover:bg-rose-100 hover:text-rose-700 disabled:cursor-not-allowed disabled:opacity-50"
-                }`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2
+    ${
+      value.trim()
+        ? "bg-rose-700/20 border border-rose-700 text-rose-700 shadow-lg hover:bg-rose-700/80 hover:text-white active:scale-95"
+        : "bg-rose-700/50 border border-rose-700 text-rose-700 opacity-50 cursor-not-allowed"
+    }`}
               >
                 {isTyping ? (
-                  <LoaderIcon className="w-4 h-4 animate-[spin_2s_linear_infinite]" />
+                  <LoaderIcon className="w-4 h-4 animate-spin" />
                 ) : (
                   <SendIcon className="w-4 h-4" />
                 )}
@@ -609,7 +638,9 @@ export default function SupportPage() {
               ].map((t, i) => (
                 <button
                   key={i}
-                  onClick={() => setValue(`Can you help me with ${t.toLowerCase()}`)}
+                  onClick={() =>
+                    setValue(`Can you help me with ${t.toLowerCase()}`)
+                  }
                   className="px-4 py-2 rounded-full bg-black/10 dark:bg-white/10  hover:bg-black/20 dark:hover:bg-white/20 text-sm backdrop-blur-lg border border-white/10 dark:text-white/70 transition-colors hover:scale-102 active:scale-97"
                 >
                   {t}
@@ -648,7 +679,9 @@ export default function SupportPage() {
               >
                 <div className="text-2xl">{item.emoji}</div>
                 <div className="text-lg font-semibold mt-1">{item.title}</div>
-                <div className="text-black/60 dark:text-white/60 text-sm mt-1">Click to use</div>
+                <div className="text-black/60 dark:text-white/60 text-sm mt-1">
+                  Click to use
+                </div>
               </motion.div>
             ))}
           </div>

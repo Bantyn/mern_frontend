@@ -7,7 +7,7 @@ export default function ClientLayout() {
   return (
     <>
       <Navbar />
-      <div className="min-h-scree bg-white dark:bg-black transition-all duration-500">
+      <div className="min-h-screen bg-white dark:bg-black transition-all duration-500">
         <Outlet />
       </div>
       <Footer />
